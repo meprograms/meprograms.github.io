@@ -27,7 +27,7 @@
 }
 
 body {
-	background-image: url(../res/bg.png);
+	background-image: url(https://raw.githubusercontent.com/meprograms/meprograms.github.io/master/res/bg.PNG);
 	background-repeat: no-repeat;
 	background-size: cover;
 }
