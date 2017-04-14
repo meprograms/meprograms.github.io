@@ -27,18 +27,15 @@ a {
 
 p {
 	text-align: center;
-	font-size: 15px;
-	padding: 10px;
-	margin: 5px;
 	font-family: sans-serif;
+	font-size: 35px;
 	color: #ff8c00;
-}
-
+	}
 body {
-	background-image: url("https://raw.githubusercontent.com/meprograms/meprograms.github.io/master/res/bg.PNG");
+	background-image: url(https://raw.githubusercontent.com/meprograms/meprograms.github.io/master/res/bg.PNG);
 	background-repeat: no-repeat;
 	background-size: cover;
-}
+	}
 
 .on {
 	color: #ff8c00;
