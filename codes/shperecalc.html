@@ -1,0 +1,40 @@
+<html>
+<body>
+  <style type="text/css">
+    body {
+  background-image: url("../bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+    }
+    p {
+      text-align: center;
+      font-family: sans-serif;
+      font-size: 20px;
+      padding: 20px 40px 0px 40px;
+      color: #ff8c00;
+    }
+  </style>
+</body>
+<p id = "p"></p>
+<script>
+var p = document.getElementById("p");
+var pi = 3.141592653589793238462643383279502884197169399375105820974944592307816406286;
+var choice = prompt("surface area or volume?");
+var sphere = {
+vol: 0,
+dia: 0,
+rad: 0,
+sa: 0
+}
+sphere.dia = Number(prompt("enter the diameter of the sphere"));
+sphere.rad = sphere.dia / 2;
+sphere.vol = 4/3*pi*Math.pow(sphere.rad, 3);
+sphere.sa = 4*pi*Math.pow(sphere.rad, 2);
+if (choice == "surface") {
+p.innerHTML = sphere.sa;
+}
+else if (choice == "volume") {
+p.innerHTML = sphere.vol;
+}
+</script>
+</html>

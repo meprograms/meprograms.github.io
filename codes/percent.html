@@ -1,0 +1,51 @@
+<body>
+	<style type="text/css">
+		body {
+  background-image: url("../bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+    	}
+    	p {
+      text-align: center;
+      font-family: sans-serif;
+      font-size: 20px;
+      padding: 20px 40px 0px 40px;
+      color: #ff8c00;
+    	}
+	</style>
+</body>
+<p id="p"></p>
+<script>
+var p = document.getElementById("p");
+var check = prompt("what are you inputing");
+var frac = {
+c: 0,
+d: 0
+}
+var outof = 8;
+var percent = 0;
+var decimal = 0;
+var fraction = "";
+if (check == "percent") {
+	percent = Number(prompt("please put a percent with no %"));
+	decimal = percent / 100;
+	frac.d = outof;
+	frac.c = frac.d * decimal;
+}
+else if(check == "decimal") {
+	decimal = Number(prompt("please put a decimal"));
+	percent = decimal * 100
+	frac.d = outof;
+	frac.c = frac.d * decimal;
+}
+else if (check == "fraction") {
+	frac.c = Number(prompt("please put a numerator"));
+	frac.d = Number(prompt("please put a denominator"));
+	percent = frac.c / frac.d * 100;
+	decimal = frac.c / frac.d;
+}
+function run() {
+p.innerHTML = "Percent is " + percent + "%" + "<br>" + "decimal is " + decimal + "<br>" + frac.c + "<br>" + frac.d + "<br>";
+}
+var i = setInterval(run, 0);
+</script>

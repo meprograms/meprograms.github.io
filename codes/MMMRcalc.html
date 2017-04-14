@@ -1,0 +1,90 @@
+<body>
+  <style type="text/css">
+    p {
+      text-align: center;
+      font-family: sans-serif;
+      font-size: 20px;
+      padding: 20px 40px 0px 40px;
+      color: #ff8c00;
+    }
+    button {
+      margin: 2px auto;
+      color: #ff8c00;
+      font-family: sans-serif;
+      font-size: 15px;
+    }
+    body {
+  background-image: url("../bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+    }
+  </style>
+</body>
+<center>
+  <button onclick="add()">Add Number</button><br>
+  <button onclick="done()">Calculate</button>
+</center>
+<p id="p"></p>
+<script>
+var p = document.getElementById("p");
+var stats = { Mean: 0, Median: 0, Mode: 0, Range: 0 };
+var ttmed = 0;
+var div = true;
+var key = 0;
+function add() {
+  var temp = Number(prompt("type in number"));
+  data.push(temp);
+}
+var data = [];
+function done() {
+data.sort(function(a, b){return a-b});
+var datal = data.length;
+var maxnum = Math.max.apply(null, data);
+var minnum = Math.min.apply(null, data);
+var medianplace = datal / 2;
+var oddmed = Math.floor(datal / 2);
+stats.Range = maxnum - minnum;
+function getModes(array) {
+  var frequency = {}; // array of frequency.
+  var maxFreq = 0; // holds the max frequency.
+  var modes = [];
+
+  for (var i in array) {
+    frequency[array[i]] = (frequency[array[i]] || 0) + 1; // increment frequency.
+
+    if (frequency[array[i]] > maxFreq) { // is this frequency > max so far ?
+      maxFreq = frequency[array[i]]; // update max.
+    }
+  }
+
+  for (var k in frequency) {
+    if (frequency[k] == maxFreq) {
+      modes.push(k);
+    }
+  }
+  stats.Mode = modes;
+}
+getModes(data);
+function calc() {
+if (medianplace % 1 == 0) {
+ttmed = data[medianplace];
+ttmed += data[medianplace - 1];
+ttmed /= 2;
+stats.Median = ttmed;
+}
+else {
+stats.Median = data[oddmed];
+}
+p.innerHTML =  "Mean is " + stats.Mean + "<br>" + "Median is " + stats.Median + "<br>" + "Mode is " + stats.Mode + "<br>" + "Range is " + stats.Range;
+if (key < datal) {
+stats.Mean += data[key];
+key++; 
+}
+else if (div == true) {
+stats.Mean /= datal;
+div = false;
+}
+}
+var i = setInterval(calc, 10);
+}
+</script>

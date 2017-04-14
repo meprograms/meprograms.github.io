@@ -1,0 +1,126 @@
+<body>
+	<style type="text/css">
+		p {
+			text-align: center;
+			font-family: sans-serif;
+			font-size: 35px;
+			color: #ff8c00;
+		}
+		body {
+	background-image: url("../bg.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+		}
+	</style>
+</body>
+<p id="p"></p>
+<script>
+var p = document.getElementById("p");
+var inputa = prompt("Type in the first number to add");
+var inputb = prompt("Type in the secound number to add");
+var i = [Number(inputa), Number(inputb)];
+var output = 0;
+var ia = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+var ib = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+var tb = [1,2,4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144,524288,1048576];
+var o = [];
+var h = {
+a: 0,
+b: 0,
+c: 0,
+d: 0,
+e: 0
+}
+var c = {
+i: 0,
+o: 0
+}
+var final = false;
+var str = "";
+var key = 0;
+var ikey = 0;
+var hkey = 1;
+var hkey2 = 1;
+var okey = 0;
+function translator() {
+if (final == true) {
+if (o[okey] == 1) {
+output += tb[okey];
+okey ++;
+}
+else {
+okey ++;
+}
+}
+if (hkey > ia.length && hkey2 > ib.length) {
+var intervl2 = setInterval(run, 0);
+}
+if (i[0] - tb[ia.length - hkey] >= 0) {
+i[0] -= tb[ia.length - hkey];
+ia[ia.length - hkey] = 1;
+}
+else {
+hkey ++;
+}
+if (i[1] - tb[ib.length - hkey2] >= 0) {
+i[1] -= tb[ib.length - hkey2];
+ib[ib.length - hkey2] = 1;
+}
+else {
+hkey2 ++;
+}
+}
+function run() {
+	p.innerHTML = ia + " +" + "<br>" + ib + " =" + "<br>" + o + "<br>" + "Or " + output + " in decimal";
+if (ia[key] != ib[key]) {
+h.a = 1;
+}
+else {
+h.a = 0;
+}
+if (ia[key] == 1 && ib[key] == 1) {
+h.b = 0;
+}
+else {
+h.b = 1;
+}
+if (h.a != c.i) {
+h.c = 1;
+o[key] = 1;
+}
+else {
+h.c = 0;
+o[key] = 0;
+}
+if (c.i == 1 && h.a == 1) {
+h.d = 0;
+}
+else {
+h.d = 1;
+}
+if (h.d == 1 && h.b == 1) {
+h.e = 0;
+c.o = 0;
+}
+else {
+h.e = 1;
+c.o = 1;
+}
+c.i = c.o;
+if (o.length < ia.length + 2) {
+key ++;
+str += h.a + " " + h.b + " " + h.c + " " + h.e + "<br>";
+}
+else {
+final = true;
+}
+h = {
+a: 0,
+b: 0,
+c: 0,
+d: 0,
+e: 0
+}
+}
+var intervl = setInterval(translator, 0);
+</script>

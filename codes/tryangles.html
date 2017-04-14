@@ -1,0 +1,32 @@
+<body>
+	<style type="text/css">
+		p {
+			text-align: center;
+			font-family: sans-serif;
+			font-size: 20px;
+			padding: 20px 40px 0px 40px;
+			color: #ff8c00;
+		}
+		body {
+	background-image: url("../bg.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+		}
+	</style>
+</body>
+<p id="p"></p>
+<script>
+var p = document.getElementById('p');
+var a = Number(prompt("type in side a length"));;
+var b = Number(prompt("type in side b length"));;
+var tca = a;
+var tcb = b;
+var c;
+var hv1;
+var area = a * b / 2;
+a = Math.pow(a,2);
+b = Math.pow(b,2);
+hv1 = a + b;
+c = Math.sqrt(hv1);
+p.innerHTML = "Side A is " + tca + "<br>" + "Side B is " + tcb + "<br>" + "Side C is " + c + "<br>" + "The area is " + area;
+</script>

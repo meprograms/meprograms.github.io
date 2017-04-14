@@ -1,0 +1,48 @@
+<body>
+  <style type="text/css">
+    p {
+      text-align: center;
+      font-family: sans-serif;
+      font-size: 20px;
+      color: #ff8c00;
+      padding: 10px 35px;
+    }
+    body {
+  background-image: url("../bg.png");
+    }
+  </style>
+</body>
+<p id="p"></p>
+<script>
+var p = document.getElementById("p");
+p.innerHTML = "Generating Numbers" + "<br>";
+var fib = [1,1];
+p.innerHTML += fib[0] + "<br>";
+p.innerHTML += fib[1] + "<br>";
+var key = 2;
+function math() {
+fib[key] = fib[key - 2] + fib[key - 1];
+if (fib[key] < Infinity) {
+p.innerHTML += toFixed(fib[key]) + "<br>";
+}
+key++;
+}
+function toFixed(x) {
+  if (Math.abs(x) < 1.0) {
+    var e = parseInt(x.toString().split('e-')[1]);
+    if (e) {
+        x *= Math.pow(10,e-1);
+        x = '0.' + (new Array(e)).join('0') + x.toString().substring(2);
+    }
+  } else {
+    var e = parseInt(x.toString().split('+')[1]);
+    if (e > 20) {
+        e -= 20;
+        x /= Math.pow(10,e);
+        x += (new Array(e+1)).join('0');
+    }
+  }
+  return x;
+}
+var i = setInterval(math, 0);
+</script>

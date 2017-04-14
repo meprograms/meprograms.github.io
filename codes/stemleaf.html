@@ -1,0 +1,290 @@
+<body>
+	<style type="text/css">
+   		p {
+      text-align: center;
+      font-family: sans-serif;
+      font-size: 20px;
+      padding: 20px 40px 0px 40px;
+      color: #ff8c00;
+   		 }
+   		 button {
+      margin: 2px auto;
+      color: #ff8c00;
+      font-family: sans-serif;
+      font-size: 15px;
+ 	   }
+ 	   body {
+  background-image: url("../bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+	    }
+  </style>
+	<center>
+  <button onclick="add()">Add Number</button><br>
+  <button onclick="done()">Calculate</button>
+</center>
+</body>
+<p id="p"></p>
+<script>
+var p = document.getElementById("p");
+var stem = [];
+var leaf = [];
+var stem2 = [];
+var leaf2 = [];
+var stem3 = [];
+var leaf3 = [];
+var stem4 = [];
+var leaf4 = [];
+var stem5 = [];
+var leaf5 = [];
+var stem6 = [];
+var leaf6 = [];
+var stem7 = [];
+var leaf7 = [];
+var stem8 = [];
+var leaf8 = [];
+var stem9 = [];
+var leaf9 = [];
+var stem10 = [];
+var leaf10 = [];
+var size = 10;
+var br;
+var stemstr = stem.toString();
+var leafstr = leaf.toString();
+var stem2str = stem2.toString();
+var leaf2str = leaf2.toString();
+var stem3str = stem3.toString();
+var leaf3str = leaf3.toString();
+var stem4str = stem4.toString();
+var leaf4str = leaf4.toString();
+var stem5str = stem5.toString();
+var leaf5str = leaf5.toString();
+var stem6str = stem6.toString();
+var leaf6str = leaf6.toString();
+var stem7str = stem7.toString();
+var leaf7str = leaf7.toString();
+var stem8str = stem8.toString();
+var leaf8str = leaf8.toString();
+var stem9str = stem9.toString();
+var leaf9str = leaf9.toString();
+var stem10str = stem10.toString();
+var leaf10str = leaf10.toString();
+var dobr = false;
+var steml = stemstr.length;
+var stem2l = stem2str.length;
+var stem3l = stem3str.length;
+var stem4l = stem4str.length;
+var stem5l = stem5str.length;
+var stem6l = stem6str.length;
+var stem7l = stem7str.length;
+var stem8l = stem8str.length;
+var stem9l = stem9str.length;
+var stem10l = stem10str.length;
+var key = 0;
+var fkey = 0;
+var data = [];
+var al = 0;
+var bl = 0;
+var cl = 0;
+var dl = 0;
+var el = 0;
+var fl = 0;
+var gl = 0;
+var hl = 0;
+var il = 0;
+var jl = 0;
+function add() {
+	var temp = Number(prompt("type in number"));
+  data.push(temp);
+}
+function done() {
+function calcl () {
+if (data[fkey] < 10) {
+al ++;
+fkey ++;
+}
+else if (data[fkey] < 20) {
+bl ++;
+fkey++;
+}
+else if (data[fkey] < 30) {
+cl ++;
+fkey++;
+}
+else if (data[fkey] < 40) {
+dl ++;
+fkey++;
+}
+else if (data[fkey] < 50) {
+el ++;
+fkey++;
+}
+else if (data[fkey] < 60) {
+fl ++;
+fkey ++;
+}
+else if (data[fkey] < 70) {
+gl ++;
+fkey++;
+}
+else if (data[fkey] < 80) {
+hl ++;
+fkey++;
+}
+else if (data[fkey] < 90) {
+il ++;
+fkey++;
+}
+else if (data[fkey] < 100) {
+jl ++;
+fkey++;
+}
+else {
+var i = setInterval(math, 0);
+}
+}
+var fstr = "";
+var fstr2 = "";
+var fstr3 = "";
+var fstr4 = "";
+var fstr5 = "";
+var fstr6 = "";
+var fstr7 = "";
+var fstr8 = "";
+var fstr9 = "";
+var fstr10 = "";
+function math() {
+if (stemstr.length > 0) {
+fstr = stemstr + " | " + leafstr + "<br>";
+}
+if (stem2str.length > 0) {
+fstr2 = stem2str + " | " + leaf2str + "<br>";
+}
+if (stem3str.length > 0) {
+fstr3 = stem3str + " | " + leaf3str + "<br>";
+}
+if (stem4str.length > 0) {
+fstr4 = stem4str + " | " + leaf4str + "<br>";
+}
+if (stem5str.length > 0) {
+fstr5 = stem5str + " | " + leaf5str + "<br>";
+}
+if (stem6str.length > 0) {
+fstr6 = stem6str + " | " + leaf6str + "<br>";
+}
+if (stem7str.length > 0) {
+fstr7 = stem7str + " | " + leaf7str + "<br>";
+}
+if (stem8str.length > 0) {
+fstr8 = stem8str + " | " + leaf8str + "<br>";
+}
+if (stem9str.length > 0) {
+fstr9 = stem9str + " | " + leaf9str + "<br>";
+}
+if (stem10str.length > 0) {
+fstr10 = stem10str + " | " + leaf10str + "<br>";
+}
+p.innerHTML = fstr + fstr2 + fstr3 + fstr4 + fstr5 + fstr6 + fstr7 + fstr8 + fstr9 + fstr10;
+if (key < al && key < data.length) {
+leaf[key] = data[key] % size;
+stem[key] = (data[key] - leaf[key]) / size;
+stemstr = stem.toString();
+steml = stemstr.length - 1;
+stemstr = stemstr.substring(steml);
+leafstr = leaf.toString();
+key++;
+}
+else if (key < al + bl && key < data.length) {
+leaf2[key] = data[key] % size;
+stem2[key] = (data[key] - leaf2[key]) / size;
+stem2str = stem2.toString();
+stem2l = stem2str.length - 1;
+stem2str = stem2str.substring(stem2l);
+leaf2str = leaf2.toString();
+leaf2str = leaf2str.substring(al);
+key++;
+}
+else if (key < al + bl + cl && key < data.length) {
+leaf3[key] = data[key] % size;
+stem3[key] = (data[key] - leaf3[key]) / size;
+stem3str = stem3.toString();
+stem3l = stem3str.length - 1;
+stem3str = stem3str.substring(stem3l);
+leaf3str = leaf3.toString();
+leaf3str = leaf3str.substring(al + bl);
+key++;
+}
+else if (key < al + bl + cl + dl && key < data.length) {
+leaf4[key] = data[key] % size;
+stem4[key] = (data[key] - leaf4[key]) / size;
+stem4str = stem4.toString();
+stem4l = stem4str.length - 1;
+stem4str = stem4str.substring(stem4l);
+leaf4str = leaf4.toString();
+leaf4str = leaf4str.substring(al + bl + cl);
+key++;
+}
+else if (key < al + bl + cl + dl + el && key < data.length) {
+leaf5[key] = data[key] % size;
+stem5[key] = (data[key] - leaf5[key]) / size;
+stem5str = stem5.toString();
+stem5l = stem5str.length - 1;
+stem5str = stem5str.substring(stem5l);
+leaf5str = leaf5.toString();
+leaf5str = leaf5str.substring(al + bl + cl + dl);
+key++;
+}
+else if (key < al + bl + cl + dl + el + fl && key < data.length) {
+leaf6[key] = data[key] % size;
+stem6[key] = (data[key] - leaf6[key]) / size;
+stem6str = stem6.toString();
+stem6l = stem6str.length - 1;
+stem6str = stem6str.substring(stem6l);
+leaf6str = leaf6.toString();
+leaf6str = leaf6str.substring(al + bl + cl + dl + el);
+key++;
+}
+else if (key < al + bl + cl + dl + el + fl + gl && key < data.length) {
+leaf7[key] = data[key] % size;
+stem7[key] = (data[key] - leaf7[key]) / size;
+stem7str = stem7.toString();
+stem7l = stem7str.length - 1;
+stem7str = stem7str.substring(stem7l);
+leaf7str = leaf7.toString();
+leaf7str = leaf7str.substring(al + bl + cl + dl + el + fl);
+key++;
+}
+else if (key < al + bl + cl + dl + el + fl + gl + hl && key < data.length) {
+leaf8[key] = data[key] % size;
+stem8[key] = (data[key] - leaf8[key]) / size;
+stem8str = stem8.toString();
+stem8l = stem8str.length - 1;
+stem8str = stem8str.substring(stem8l);
+leaf8str = leaf8.toString();
+leaf8str = leaf8str.substring(al + bl + cl + dl + el + fl + gl);
+key++;
+}
+else if (key < al + bl + cl + dl + el + fl + gl + hl + il && key < data.length) {
+leaf9[key] = data[key] % size;
+stem9[key] = (data[key] - leaf9[key]) / size;
+stem9str = stem9.toString();
+stem9l = stem9str.length - 1;
+stem9str = stem9str.substring(stem9l);
+leaf9str = leaf9.toString();
+leaf9str = leaf9str.substring(al + bl + cl + dl + el + fl + gl + hl);
+key++;
+}
+else if (key < al + bl + cl + dl + el + fl + gl + hl + il + jl + 100 && key < data.length) {
+leaf10[key] = data[key] % size;
+stem10[key] = (data[key] - leaf10[key]) / size;
+stem10str = stem10.toString();
+stem10l = stem10str.length - 1;
+stem10str = stem10str.substring(stem10l);
+leaf10str = leaf10.toString();
+leaf10str = leaf10str.substring(al + bl + cl + dl + el + fl + gl + hl + il);
+key++;
+}
+}
+var u = setInterval(calcl, 0);
+}
+</script>

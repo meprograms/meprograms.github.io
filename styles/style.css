@@ -1,0 +1,38 @@
+.header {
+	text-align: center;
+	font-size: 60px;
+	padding: 20px 0 0 0;
+	font-family: sans-serif;
+	color: #e88d1e;
+}
+
+.subheader {
+	text-align: center;
+	font-size: 30px;
+	padding: 10px;
+	font-family: sans-serif;
+	color: #995f18;
+}
+
+.list {
+	text-align: center;
+	font-size: 15px;
+	padding: 5px 0px;
+	font-family: sans-serif;
+}
+
+#link {
+	color: #ff8c00;
+	text-decoration: none;
+}
+
+body {
+	background-image: url("../bg.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+}

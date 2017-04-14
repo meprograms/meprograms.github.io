@@ -1,0 +1,53 @@
+<body>
+  <style type="text/css">
+    body {
+  background-image: url("../bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+    }
+    p {
+      text-align: center;
+      font-family: sans-serif;
+      font-size: 20px;
+      padding: 20px 40px 0px 40px;
+      color: #ff8c00;
+    }
+  </style>
+</body>
+<p id="p"></p>
+<script>
+var p = document.getElementById("p");
+var ratio = {
+x: 0,
+y: 0
+}
+ratio.x = Number(prompt("enter a number"));
+ratio.y = Number(prompt("enter another number"));
+var key = 0;
+var sn = [];
+var numkey = 1;
+var num = [2];
+function number() {
+p.innerHTML = ratio.x + "<br>" + ratio.y + "<br>" + numkey;
+if (num[numkey - 1] < (ratio.y + 1) / 2) { 
+num[numkey] = num[numkey - 1] + 1;
+numkey++;
+}
+else {
+math();
+}
+}
+function math() {
+if (ratio.x % num[key] == 0 && ratio.y % num[key] == 0) {
+ratio.x /= num[key];
+ratio.y /= num[key];
+sn[key] = ratio.x;
+}
+else if (key < ratio.y){
+key++;
+}
+else {
+}
+}
+var i = setInterval(number, 0);
+</script>

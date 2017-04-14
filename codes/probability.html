@@ -1,0 +1,42 @@
+<body>
+	<style type="text/css">
+		body {
+  background-image: url("../bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+    }
+    p {
+      text-align: center;
+      font-family: sans-serif;
+      font-size: 20px;
+      padding: 20px 40px 0px 40px;
+      color: #ff8c00;
+    }
+	</style>
+</body>
+<p id="p"></p>
+<script>
+var p = document.getElementById("p");
+var outcome = '';
+var trials = 0;
+var hv1 = 0;
+var landed = 0;
+var mtrials = 10000000;
+var percentage = 0;
+var pos = Number(prompt("how many posibilitys"));
+function run() {
+p.innerHTML  = "Outcome is " + outcome + "<br>" + trials + " Trials" + "<br>" + landed + " Landed" + "<br>" + percentage + " %";
+hv1 = Math.random();
+if (trials < mtrials) {
+if (hv1 < 1 / pos) {
+landed ++;
+trials ++;
+}
+else {
+trials ++;
+}
+}
+percentage = landed / trials * 100;
+}
+var i = setInterval(run, 0);
+</script>

@@ -1,0 +1,91 @@
+<body>
+	<style type="text/css">
+		body {
+  background-image: url("../bg.png");
+  background-size: cover;
+    }
+    p {
+      text-align: center;
+      font-family: sans-serif;
+      font-size: 20px;
+      padding: 20px 40px 0px 40px;
+      color: #ff8c00;
+    }
+	</style>
+</body>
+<p id="p"></p>
+<script>
+var num = [2];
+var makekey = 1;
+var fkey = 3;
+var upto = 1000;
+var p = document.getElementById("p");
+var number = 2;
+var statnum = number;
+var numberkey = 1;
+var key = 0;
+var numkey = 0;
+var done = '';
+var numused = [];
+var prime = [];
+var pastkey = 0;
+var primekey = 0;
+var numusedstr = '';
+var pkey = 1;
+var startcomp = false;
+function trynum(num) {
+number = num;
+key = 0;
+statnum = number;
+numkey = 0;
+}
+function math() {
+if (statnum > upto) {
+clearInterval(makeintrvl,i);
+}
+if (pkey > fkey) {
+run();
+}
+p.innerHTML = statnum + "<br>" + prime + "<br>" + done;
+if (statnum % num[key] == 0) {
+numused = num[key];
+}
+else if(key < number){
+key++;
+}
+if (numused == statnum) {
+prime[primekey] = statnum;
+run();
+}
+else if (numused < statnum){
+pkey ++;
+}
+}
+function run() {
+if (numused == statnum) {
+prime[primekey] = statnum;
+primekey++;
+}
+trynum(fkey);
+pkey = 0;
+fkey += 2;
+}
+function start() {
+if (startcomp == true) {
+var i = setInterval(math, 0);
+}
+}
+function makenum() {
+if (num[num.length - 1] < upto) {
+num[makekey] = num[makekey - 1] + 1;
+makekey ++;
+}
+else {
+console.log("Done");
+startcomp = true;
+clearInterval(makeintrvl);
+start();
+}
+}
+var makeintrvl = setInterval(makenum, 0);
+</script>

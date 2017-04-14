@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <style type="text/css">
+    body {
+  background-image: url("../bg.png");
+  background-size: cover;
+    }
+  </style>
+  <head>
+    <canvas id="screen" width="1000" height="600"></canvas>
+    <script>
+      var canvas = document.getElementById("screen");
+      var ctx = canvas.getContext("2d");
+      var il = Number(prompt("how flat should the parabola be?"));
+      var x = 0;
+      var y = 0;
+      var py = 0;
+      var a = 0.1;
+      function run() {
+          ctx.fillStyle = "#ff8c00";
+          ctx.fillRect(500 + x, 500 + y, 1, 1);
+          ctx.fillRect(500 - x, 500 + y, 1, 1);
+          py = y;
+          x += a;
+          y = Math.pow(x, 2);
+          y = y - y * 2;
+          y /= il;
+      }
+      var i = setInterval(run, 0);
+    </script>
+  </head>
+  <body>
+  </body>
+<html>
