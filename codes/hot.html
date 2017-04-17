@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <link rel="stylesheet" type="text/css" href="../styles/fibstyle.css">
+<div class="info">
+      <a class="bon" id="home" href="../index.html" >Home</a>
+      <a class="bon" id="about" href="../about.html" >About</a>
+      <a class="bon" id="cont" href="../contact.html">Contact</a>
+      <a class="bon" id="git" href="https://github.com/meprograms/meprograms.github.io" >See code</a>
+      <a class="bon" id="get" href="https://www.vat19.com/item/hot-sauce-challenge-12-pack-book" >Get it here</a>
+    </div>
+    <script type="text/javascript" src="../jquery.js"></script>
+<script type="text/javascript" src="../scripts/homes.js" ></script>
+	<button onclick = "getano()" class="butt" >Get another Sauce</button>
+    <p id="p"></p>
+    <script>
+      var p = document.getElementById("p");
+	var n = Math.floor(Math.random() * 12);
+        var npo = n + 1;
+      var sauce = ["Bacon", "Ass Kickin' Chile Lime", "Ass Kickin' Sriracha", "Ass Kickin' Cajun", "Ass Kickin' Original", "Ass Kickin' Wasabi", "Ass Kickin' Roasted Garlic", "Hot Sauce From Hell", "Hot Sauce From Hell Devils Revenge", "Ass Kickin' Ghost Pepper", "Ass Blasted", "Spontaneous Combustion"];
+      function getano() {
+	 n = Math.floor(Math.random() * 12);
+         npo = n + 1;
+        p.innerHTML += "The Hot Sauce you get is " + sauce[n] + " Or Number " + npo + "<br>";
+      }
+    </script>
+  </head>
+  <body>
+  </body>
+<html>

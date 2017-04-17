@@ -23,4 +23,10 @@ $(document).ready(function() {
 	$("#git").mouseout(function () {
 		$(this).removeClass('boff').addClass('bon');
 	});
+	$("#get").mouseover(function () {
+		$(this).removeClass('bon').addClass('boff');
+	});
+	$("#get").mouseout(function () {
+		$(this).removeClass('boff').addClass('bon');
+	});
 });

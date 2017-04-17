@@ -124,5 +124,10 @@ $(document).ready(function() {
 		$("#tryal").removeClass('off').addClass('on');
 	});
 
-
+	$("#hot").mouseover(function () {
+		$("#hotl").removeClass('on').addClass('off');
+	});
+	$("#hot").mouseout(function () {
+		$("#hotl").removeClass('off').addClass('on');
+	});
 });

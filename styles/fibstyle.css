@@ -81,6 +81,16 @@ body {
 	text-decoration: none;
 }
 
+#get {
+	text-align: center;
+	font-size: 20px;
+	font-family: sans-serif;
+	margin: 5px;
+	padding: 0px 3px;
+	display: inline-block;
+	text-decoration: none;
+}
+
 #home {
 	text-align: center;
 	font-size: 20px;
@@ -93,6 +103,10 @@ body {
 
 .info {
 
+}
+
+.butt {
+	margin: 5px 5px 5px 10px;
 }
 
 * {
