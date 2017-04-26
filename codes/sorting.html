@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<link rel="stylesheet" type="text/css" href="../styles/fibstyle.css">
+<div class="info">
+      <a class="bon" id="home" href="../index.html" >Home</a>
+      <a class="bon" id="about" href="../about.html" >About</a>
+      <a class="bon" id="cont" href="../contact.html">Contact</a>
+      <a class="bon" id="git" href="https://github.com/meprograms/meprograms.github.io" >See code</a>
+    </div>
+      <script type="text/javascript" src="../jquery.js"></script>
+  <script type="text/javascript" src="../scripts/homes.js" ></script> 
+  <style type="text/css">
+    body {
+  background-image: url(https://raw.githubusercontent.com/meprograms/meprograms.github.io/master/res/bg.PNG);
+  background-size: cover;
+    }
+  </style>
+<p onclick="random()" class="bon" id = "res">Reset</p>
+    <canvas id="p" width= "1000"></canvas>
+    <script>
+      var p = document.getElementById("p");
+      var ctx = p.getContext("2d");
+	var pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+	var a = prompt("How many colums");
+	a = a.replace(/[^0-9]/g, "");
+	a = Number(a);
+	a += 2
+	if (a - 2 > 100000) {
+	a = 1000;
+	alert("Maximum of 100,000");
+	}
+	for (var x = 0; x < a - 1; x++) {
+	pos[x] = 1000 / a * x;
+	}
+	var done = false;
+	var h = [];
+	var dorand = true;
+	function random() {
+	done = false;
+	ctx.fillStyle = "red";
+	for (var x = 0; x < a; x ++) {
+	h[x] = Math.ceil(Math.random() * (a * 2)) * (100 / (a * 2));
+	}
+	}
+	random();
+	var hidden = 0;
+	var y = 0;
+	ctx.fillStyle = "red";
+      function run() {
+	ctx.clearRect(0, 0, 1000, 1000);
+	y = 0;
+	for (var x = 0; x < a - 2; x ++) {
+	if (done == true) {
+	ctx.fillStyle = "limegreen";
+	}
+	ctx.fillRect(pos[x], 50, 1000 / a, h[x]);
+	}
+	dorand = false;
+	for (var x = 0; x < a - 2; x ++) {
+	if (h[x] > h[x + 1]) {
+	hidden = h[x];
+	h[x] = h[x + 1];
+	h[x + 1] = hidden;
+      	}
+	else {
+	y ++;
+	}
+	if (y >= a - 2) {
+	done = true;
+	}
+	}
+      }
+      var i = setInterval(run, 0);
+    </script>
+  </head>
+  <body>
+  </body>
+<html>

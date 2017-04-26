@@ -130,4 +130,10 @@ $(document).ready(function() {
 	$("#hot").mouseout(function () {
 		$("#hotl").removeClass('off').addClass('on');
 	});
+	$("#sort").mouseover(function () {
+		$("#sortl").removeClass('on').addClass('off');
+	});
+	$("#sort").mouseout(function () {
+		$("#sortl").removeClass('off').addClass('on');
+	});
 });

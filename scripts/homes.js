@@ -29,4 +29,10 @@ $(document).ready(function() {
 	$("#get").mouseout(function () {
 		$(this).removeClass('boff').addClass('bon');
 	});
+	$("#res").mouseover(function () {
+		$(this).removeClass('bon').addClass('boff');
+	});
+	$("#res").mouseout(function () {
+		$(this).removeClass('boff').addClass('bon');
+	});
 });
