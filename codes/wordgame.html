@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../styles/fibstyle.css">
+    <div class="info">
+      <a class="bon" id="home" href="../index.html" >Home</a>
+      <a class="bon" id="about" href="../about.html" >About</a>
+      <a class="bon" id="cont" href="../contact.html">Contact</a>
+      <a class="bon" id="git" href="https://github.com/meprograms/meprograms.github.io" >See code</a>
+    </div>
+    <p id="small">Someone writes a word, then you use the last letter of the word to make a new word, and if you end with a N you lose. No repeats. You can’t search up words. No take backs. No other people helping you. No names what so ever (books, people, movies, franchises etc.)</p>
+    <p>You go first</p>
+    <input type="textbox" id="text" placeholder="Enter your word"></input>
+    <button onclick="but()" class="bon">Enter</button>
+    <script type="text/javascript" src="../jquery.js"></script>
+    <script type="text/javascript" src="../scripts/homes.js" ></script>
+    <p id="p"></p>
+    <script>
+      var p = document.getElementById("p");
+      var end = "";
+      var db = [];
+      var used = [];
+      var tempwrd = "";
+      var prevwrd = "";
+      var word = "";
+      var turn = true;
+      var on = true;
+      var round = 0;
+      function but() {
+        if (turn == true && on == true) {
+          turn = false;
+          run();
+        }
+        else {
+          alert("It's not your turn!")
+        }
+      }
+      function run() {
+        word = document.getElementById("text").value;
+        tempwrd = word.toLowerCase();
+        p.innerHTML += word + "<br>";
+        used.push(tempwrd);
+        if (round != 0) {
+          if (tempwrd.substr(tempwrd.length - 1) != prevwrd.substr(1)) {
+            end = "f7a2e8166a663d6a5fc86c3ccd320f0b";
+            p.innerHTML += "You lose the last letter of" + prevwrd + " is not the first letter of " + word + "<br>";
+          }
+        }
+        if (tempwrd.substr(tempwrd.length - 1) == "n") {
+          end = "f7a2e8166a663d6a5fc86c3ccd320f0b";
+          p.innerHTML += "You lose " + word + " ends in N" + "<br>";
+        }
+        for (var x = 0; x < used.length - 1; x++) {
+          if (tempwrd == used[x]) {
+            end = "f7a2e8166a663d6a5fc86c3ccd320f0b";
+            p.innerHTML += "You lose " + word + " has already been used" + "<br>";
+          }
+        }
+        round ++;
+        prevwrd = tempwrd;
+      }
+    </script>
+  </head>
+  <body>
+  </body>
+<html>

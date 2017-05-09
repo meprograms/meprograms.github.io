@@ -27,23 +27,19 @@ a {
 
 p {
 	text-align: center;
+	font-size: 15px;
+	padding: 10px;
+	margin: 5px;
 	font-family: sans-serif;
-	font-size: 35px;
 	color: #ff8c00;
-	}
-body {
-	background-image: url(https://raw.githubusercontent.com/meprograms/meprograms.github.io/master/res/bg.PNG);
-	}
-button {
-	text-align: center;
-	font-size: 20px;
-	font-family: sans-serif;
-	margin: 5px 5px 5px 10px;
-	padding: 0px 3px;
-	display: inline-block;
-	text-decoration: none;
-	background: none;
 }
+
+body {
+	background-image: url("https://raw.githubusercontent.com/meprograms/meprograms.github.io/master/res/bg.PNG");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
 .on {
 	color: #ff8c00;
 }
@@ -60,10 +56,6 @@ button {
 .boff {
 	color: #844800;
 	border: 2px solid #844800;
-}
-
-#small {
-	font-size: 20px;
 }
 
 #about {
@@ -94,27 +86,7 @@ button {
 	text-decoration: none;
 }
 
-#get {
-	text-align: center;
-	font-size: 20px;
-	font-family: sans-serif;
-	margin: 5px;
-	padding: 0px 3px;
-	display: inline-block;
-	text-decoration: none;
-}
-
 #home {
-	text-align: center;
-	font-size: 20px;
-	font-family: sans-serif;
-	margin: 5px 5px 5px 10px;
-	padding: 0px 3px;
-	display: inline-block;
-	text-decoration: none;
-}
-
-#res {
 	text-align: center;
 	font-size: 20px;
 	font-family: sans-serif;
@@ -126,10 +98,6 @@ button {
 
 .info {
 
-}
-
-.butt {
-	margin: 5px 5px 5px 10px;
 }
 
 * {
