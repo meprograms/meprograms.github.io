@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../styles/fibstyle.css">
+    <div class="info">
+      <a class="bon" id="home" href="../index.html" >Home</a>
+      <a class="bon" id="about" href="../about.html" >About</a>
+      <a class="bon" id="cont" href="../contact.html">Contact</a>
+      <a class="bon" id="git" href="https://github.com/meprograms/meprograms.github.io" >See code</a>
+    </div>
+    <button onclick="simp(frac.e, frac.f)">Simplify</button>
+    <script type="text/javascript" src="../jquery.js"></script>
+    <script type="text/javascript" src="../scripts/homes.js" ></script>
+    <p id="p"></p>
+    <style type="text/css">
+    button {
+      background-color: transparent;
+      color: #ff8c00;
+      border: 2px solid #ff8c00;
+      margin: 10px auto;
+      left: 50%;
+      position: absolute;
+      text-align: center;
+      font-family: sans-serif, arial;
+      font-size: 20px;
+    }
+    button:hover {
+      background-color: transparent;
+      color: #844800;
+      border: 2px solid #844800;
+    }
+    p {
+      margin-top: 100px;
+    }
+    </style>
+    <script>
+      var p = document.getElementById("p");
+      go = true;
+      var frac = {
+        a: 2,
+        b: 6,
+        c: 2,
+        d: 6,
+        e: 0,
+        f: 0
+      }
+      var mode = "";
+      choice = prompt("would you like to add subtract multiply or divide? type add, sub , mul or div");
+      if (choice == "add") {
+        mode = "add";
+      }
+      else if (choice == "sub") {
+        mode = "sub";
+      }
+      else if (choice == "mul") {
+        mode = "mul";
+      }
+      else if (choice == "div") {
+        mode = "div";
+      }
+      else {
+        alert("please enter add, sub , mul or div only")
+      }
+      frac.a = Number(prompt("Enter the first number of the first ratio"));
+      frac.b = Number(prompt("Enter the secound number of the first ratio"));
+      frac.c = Number(prompt("Enter the first number of the secound ratio"));
+      frac.d = Number(prompt("Enter the secound number of the secound ratio"));
+      var pha = 0;
+      var phb = 0;
+      var phc = 0;
+      function run() {
+        if (frac.b > frac.d) {
+          phc = frac.b / frac.d;
+          frac.d *= phc;
+          frac.c *= phc;
+        }
+        else if (frac.d > frac.b) {
+          phc = frac.d / frac.b;
+          frac.b *= phc;
+          frac.a *= phc;
+        }
+        else if (frac.b == frac.d) {
+          if (go == true) {
+            if (mode == "add") {
+              frac.e = frac.a + frac.c;
+            } else if (mode == "sub") {
+              frac.e = frac.a - frac.c;
+            } else if (mode == "mul") {
+              frac.e = frac.a * frac.c;
+            } else if (mode == "div") {
+              frac.e = frac.a / frac.c;
+            }
+          frac.f = frac.d;
+          if (frac.e % 1 != 0 || frac.f % 1 != 0) {
+          frac.e *= 10;
+          frac.f *= 10;
+        }
+        else {
+        }
+            p.innerHTML = frac.e + "<br>" + "-" + "<br>" + frac.f;
+            go = false;
+          }
+        }
+      }
+      function simp(x, y) {
+        var key = 0;
+var sn = [];
+var numkey = 1;
+var num = [2];
+function number() {
+p.innerHTML = x + "<br>" + "-" + "<br>" + y + "<br>";
+if (num[numkey - 1] < (y + 1) / 2) {
+num[numkey] = num[numkey - 1] + 1;
+numkey++;
+}
+else {
+math();
+}
+}
+function math() {
+if (x % num[key] == 0 && y % num[key] == 0) {
+x /= num[key];
+y /= num[key];
+sn[key] = x;
+}
+else if (key < y){
+key++;
+}
+else {
+}
+}
+var i = setInterval(number, 0);
+      }
+      var i = setInterval(run, 0);
+    </script>
+  </head>
+  <body>
+  </body>
+<html>

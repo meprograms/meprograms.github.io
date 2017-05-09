@@ -130,10 +130,25 @@ $(document).ready(function() {
 	$("#hot").mouseout(function () {
 		$("#hotl").removeClass('off').addClass('on');
 	});
+
 	$("#sort").mouseover(function () {
 		$("#sortl").removeClass('on').addClass('off');
 	});
 	$("#sort").mouseout(function () {
 		$("#sortl").removeClass('off').addClass('on');
+	});
+
+	$("#frac").mouseover(function () {
+		$("#fracl").removeClass('on').addClass('off');
+	});
+	$("#frac").mouseout(function () {
+		$("#fracl").removeClass('off').addClass('on');
+	});
+
+	$("#scri").mouseover(function () {
+		$("#scril").removeClass('on').addClass('off');
+	});
+	$("#scri").mouseout(function () {
+		$("#scril").removeClass('off').addClass('on');
 	});
 });

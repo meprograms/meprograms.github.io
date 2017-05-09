@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../styles/fibstyle.css">
+    <div class="info">
+      <a class="bon" id="home" href="../index.html" >Home</a>
+      <a class="bon" id="about" href="../about.html" >About</a>
+      <a class="bon" id="cont" href="../contact.html">Contact</a>
+      <a class="bon" id="git" href="https://github.com/meprograms/meprograms.github.io" >See code</a>
+    </div>
+    <script type="text/javascript" src="../jquery.js"></script>
+    <script type="text/javascript" src="../scripts/homes.js" ></script>
+    <p>click the button and say I speak at this speed then click it again then enter your text</p>
+    <button onclick="timer()" id="b" class="bon">start</button>
+    <p id="p"></p>
+    <script>
+      var p = document.getElementById("p");
+      var b = document.getElementById("b");
+	var tts = 0;
+	var sent;
+      var sec = 0;
+      var min = 0;
+      var hour = 0;
+      var spaces;
+      var words;
+      var sps;
+      var state = true;
+	function timer() {
+	if (state == true) {
+	state = false;
+	}
+	else {
+	state = true;
+	sent = prompt("enter your text");
+	sps = 21 / tts;
+	sec = sent.length / sps;
+	sec = Math.round(sec);
+	spaces = sent.replace(/[^ ]/g, "");
+	words = spaces.length + 1;
+	}
+	}
+      function run() {
+	if (state == true) {
+	  b.innerHTML = "Start";
+	}
+	else {
+	  tts += 0.1;
+	  b.innerHTML = "Stop";
+	}
+	if (sec >= 60) {
+	min += 1;
+	sec -= 60;
+	}
+	if (min >= 60) {
+	hour += 1;
+	min -= 60;
+	}
+        p.innerHTML = sps + " characters per secound" + "<br>" + sent.length + " characters " + "<br>" + words + " Words" + "<br>" + "in " + hour + ":" + min + ":" + sec + "<br>" + sent;
+      }
+	var i = setInterval(run, 100);
+    </script>
+  </head>
+  <body>
+  </body>
+<html>

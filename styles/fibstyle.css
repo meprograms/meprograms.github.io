@@ -42,6 +42,7 @@ button {
 	padding: 0px 3px;
 	display: inline-block;
 	text-decoration: none;
+	background: none;
 }
 .on {
 	color: #ff8c00;
