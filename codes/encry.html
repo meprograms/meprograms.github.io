@@ -1,0 +1,35 @@
+<input type="text" placeholder="Enter text" id="text"></input>
+<button onclick="encry()">Encrypt</button>
+<script type="text/javascript">
+	var tb = document.getElementById("text");
+	var str = "";
+	var alph = [' ','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+	var strarr = [];
+	var shiftarr = [];
+	var carr = [];
+	var cstr = "";
+	var shift = 3;
+	function encry() {
+		str = tb.value;
+		str = str.toLowerCase();
+		str = str.replace(/[^a-z ]/g, "");
+ 		for (var i = 0; i < str.length; i ++) {
+ 			strarr[i] = alph.indexOf(str.charAt(i));
+ 			if(strarr[i] == 0) {
+ 				carr[i] = " ";
+ 			}
+ 			else {
+ 				if ((strarr[i] + shift) % 26 == 0) {
+ 					shiftarr[i] = 26;
+ 				} 
+ 				else {
+ 			shiftarr[i] = (strarr[i] + shift) % 26;
+ 		}
+ 			carr[i] = alph[shiftarr[i]];
+ 		}
+ 		}
+ 		cstr = carr.toString();
+ 		cstr = cstr.replace(/,/g, '');
+ 		alert(cstr);
+	};
+</script>

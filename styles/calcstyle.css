@@ -45,16 +45,6 @@ body {
 	color: #844800;
 }
 
-.bon {
-	color: #ff8c00;
-	border: 2px solid #ff8c00;
-}
-
-.boff {
-	color: #844800;
-	border: 2px solid #844800;
-}
-
 #about {
 	text-align: center;
 	font-size: 20px;
@@ -62,6 +52,19 @@ body {
 	margin: 5px;
 	padding: 0px 3px;
 	display: inline-block;
+	color: #ff8c00;
+	border: 2px solid #ff8c00;
+}
+
+#about:hover {
+	text-align: center;
+	font-size: 20px;
+	font-family: sans-serif;
+	margin: 5px;
+	padding: 0px 3px;
+	display: inline-block;
+	color: #844800;
+	border: 2px solid #844800;
 }
 
 #cont {
@@ -71,6 +74,19 @@ body {
 	margin: 5px;
 	padding: 0px 3px;
 	display: inline-block;
+	color: #ff8c00;
+	border: 2px solid #ff8c00;
+}
+
+#cont:hover {
+	text-align: center;
+	font-size: 20px;
+	font-family: sans-serif;
+	margin: 5px;
+	padding: 0px 3px;
+	display: inline-block;
+	color: #844800;
+	border: 2px solid #844800;
 }
 
 #git {
@@ -81,6 +97,19 @@ body {
 	padding: 0px 3px;
 	display: inline-block;
 	text-decoration: none;
+	color: #ff8c00;
+	border: 2px solid #ff8c00;
+}
+
+#git:hover {
+	text-align: center;
+	font-size: 20px;
+	font-family: sans-serif;
+	margin: 5px;
+	padding: 0px 3px;
+	display: inline-block;
+	color: #844800;
+	border: 2px solid #844800;
 }
 
 #home {
@@ -91,6 +120,19 @@ body {
 	padding: 0px 3px;
 	display: inline-block;
 	text-decoration: none;
+	color: #ff8c00;
+	border: 2px solid #ff8c00;
+}
+
+#home:hover {
+	text-align: center;
+	font-size: 20px;
+	font-family: sans-serif;
+	margin: 5px 5px 5px 10px;
+	padding: 0px 3px;
+	display: inline-block;
+	color: #844800;
+	border: 2px solid #844800;
 }
 
 .info {

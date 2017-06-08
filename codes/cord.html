@@ -1,0 +1,74 @@
+<link rel="stylesheet" type="text/css" href="../styles/calcstyle.css">
+<div class="info">
+      <a class="bon" id="home" href="../index.html" >Home</a>
+      <a class="bon" id="about" href="../about.html" >About</a>
+      <a class="bon" id="cont" href="../contact.html">Contact</a>
+      <a class="bon" id="git" href="https://github.com/meprograms/meprograms.github.io" >See code</a>
+    </div>
+<p id="p"></p>
+<input type="text" id="textx" placeholder="enter x">
+<input type="text" id="texty" placeholder="enter y">
+<input type="text" id="texts" placeholder="size multiplyer">
+<button onclick="" id="button">Enter</button>
+<button onclick="" id="button2">finish</button>
+<button onclick="" id="button3">resize</button>
+<canvas id="canvas" width="400" height="400"></canvas>
+<script type="text/javascript">
+var ctx = document.getElementById("canvas").getContext("2d");
+var textx = document.getElementById("textx");
+var texty = document.getElementById("texty");
+	var texts = document.getElementById("texts");
+var button = document.getElementById("button");
+var button2 = document.getElementById("button2");
+var button3 = document.getElementById("button3");
+var xarr = [];
+var yarr = [];
+var rxarr = [];
+var ryarr = [];
+var m = 1;
+button3.onclick = function() {
+  m = Number(texts.value);
+  for (var i = 0; i < xarr.length; i++) {
+    rxarr.push(Number(xarr[i] * m));
+    ryarr.push(Number(yarr[i] * m));
+    ctx.fillRect(200 + rxarr[i], 200 + ryarr[i], 2, 2);
+  }
+  for (var i = 0; i < xarr.length; i++) {
+    ctx.beginPath();
+    ctx.moveTo(200 + rxarr[i], 200 + ryarr[i]);
+    ctx.lineTo(200 + rxarr[i + 1], 200 + ryarr[i + 1]);
+    ctx.stroke();
+  }
+	ctx.beginPath();
+  ctx.moveTo(200 + rxarr[rxarr.length - 1], 200 + ryarr[ryarr.length - 1]);
+  ctx.lineTo(200 + rxarr[0], 200 + ryarr[0]);
+  ctx.stroke();
+};
+button2.onclick = function() {
+  ctx.beginPath();
+  ctx.moveTo(200 + xarr[xarr.length - 1], 200 + yarr[yarr.length - 1]);
+  ctx.lineTo(200 + xarr[0], 200 + yarr[0]);
+  ctx.stroke();
+};
+button.onclick = function() {
+  xarr.push(Number(textx.value) * 10);
+  yarr.push(Number(texty.value) * 10);
+  for (var i = 0; i < xarr.length; i++) {
+    ctx.fillRect(200 + xarr[i], 200 + yarr[i], 2, 2);
+  }
+  for (var i = 0; i < xarr.length - 1; i++) {
+    ctx.beginPath();
+    ctx.moveTo(200 + xarr[i], 200 + yarr[i]);
+    ctx.lineTo(200 + xarr[i + 1], 200 + yarr[i + 1]);
+    ctx.stroke();
+  }
+};
+</script>
+<style type="text/css">
+canvas {
+  background-color: #ff5d00;
+}
+#textx {
+  margin: 0 0 0 10px;
+}
+</style>

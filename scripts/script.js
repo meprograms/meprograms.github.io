@@ -151,4 +151,11 @@ $(document).ready(function() {
 	$("#scri").mouseout(function () {
 		$("#scril").removeClass('off').addClass('on');
 	});
+
+	$("#cord").mouseover(function () {
+		$("#cordl").removeClass('on').addClass('off');
+	});
+	$("#cord").mouseout(function () {
+		$("#cordl").removeClass('off').addClass('on');
+	});
 });
