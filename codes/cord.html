@@ -59,8 +59,8 @@ button2.onclick = function() {
   ctx.stroke();
 };
 button.onclick = function() {
-  xarr.push(Number(textx.value) * 10);
-  yarr.push(Number(texty.value) * 10);
+  xarr.push(Number(textx.value) * 10 - Number(textx.value) * 10 * 2);
+  yarr.push(Number(texty.value) * 10 - Number(texty.value) * 10 * 2);
   for (var i = 0; i < xarr.length; i++) {
     ctx.fillRect(200 + xarr[i], 200 + yarr[i], 2, 2);
   }
@@ -79,15 +79,15 @@ function update() {
   rect1.innerHTML = "Box1" + "<br>";
   rect2.innerHTML = "Box2" + "<br>";
   for (var i = 0; i < xarr.length; i ++) {
-    rect1.innerHTML += xarr[i] / 10 + ", " + yarr[i] / 10 + "<br>";
+    rect1.innerHTML += (xarr[i] / 10 - xarr[i] / 10 * 2) + ", " + (yarr[i] / 10 - yarr[i] / 10 * 2) + "<br>";
   }
   if (rxarr.length > 0) {
    for (var i = 0; i < rxarr.length; i ++) {
-     rect2.innerHTML += rxarr[i] / 10 + ", " + ryarr[i] / 10 + "<br>";
+     rect2.innerHTML += (rxarr[i] / 10 - rxarr[i] / 10 * 2) + ", " + (ryarr[i] / 10 - ryarr[i] / 10 * 2) + "<br>";
     }
   }
   console.log(mx, my)
-    mout.innerHTML = "Mouse Pos " + Math.round((mx - 200) / 10) + ", " + Math.round((my - 200) / 10) + "<br>";
+    mout.innerHTML = "Mouse Pos " + (Math.round((mx - 200) / 10) - Math.round((mx - 200) / 10) * 2) + ", " + (Math.round((my - 200) / 10) - Math.round((my - 200) / 10) * 2) + "<br>";
 };
 setInterval(update, 100);
 </script>
