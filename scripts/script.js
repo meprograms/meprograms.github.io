@@ -158,4 +158,11 @@ $(document).ready(function() {
 	$("#cord").mouseout(function () {
 		$("#cordl").removeClass('off').addClass('on');
 	});
+
+	$("#phic").mouseover(function () {
+		$("#phicl").removeClass('on').addClass('off');
+	});
+	$("#phic").mouseout(function () {
+		$("#phicl").removeClass('off').addClass('on');
+	});
 });
