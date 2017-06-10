@@ -12,20 +12,28 @@
 <button onclick="" id="button">Enter</button>
 <button id="button2" onclick="">finish</button>
 <button onclick="" id="button3">resize</button>
+<p id="mouse"></p>
 <canvas id="canvas" width="400" height="400"></canvas>
+<p id="rect1"></p>
+<p id="rect2"></p>
 <script type="text/javascript">
-var ctx = document.getElementById("canvas").getContext("2d");
+var canvas = document.getElementById("canvas")
+var ctx = canvas.getContext("2d");
 var textx = document.getElementById("textx");
 var texty = document.getElementById("texty");
 	var texts = document.getElementById("texts");
 var button = document.getElementById("button");
 var button2 = document.getElementById("button2");
 var button3 = document.getElementById("button3");
-var xarr = [];
-var yarr = [];
+var out1 = document.getElementById("rect1");
+var out2 = document.getElementById("rect2");
+var mout = document.getElementById("mouse");
+var xarr = [0, 30, 0];
+var yarr = [40, 0, -40];
 var rxarr = [];
 var ryarr = [];
 var m = 1;
+var mx, my;
 button3.onclick = function() {
   m = Number(texts.value);
   for (var i = 0; i < xarr.length; i++) {
@@ -63,12 +71,40 @@ button.onclick = function() {
     ctx.stroke();
   }
 };
+canvas.addEventListener('mousemove', function(e) {
+  mx = e.pageX - this.offsetLeft;
+  my = e.pageY - this.offsetTop;
+}, false);
+function update() {
+  rect1.innerHTML = "Box1" + "<br>";
+  rect2.innerHTML = "Box2" + "<br>";
+  for (var i = 0; i < xarr.length; i ++) {
+    rect1.innerHTML += xarr[i] / 10 + ", " + yarr[i] / 10 + "<br>";
+  }
+  if (rxarr.length > 0) {
+   for (var i = 0; i < rxarr.length; i ++) {
+     rect2.innerHTML += rxarr[i] / 10 + ", " + ryarr[i] / 10 + "<br>";
+    }
+  }
+  console.log(mx, my)
+    mout.innerHTML = "Mouse Pos " + Math.round((mx - 200) / 10) + ", " + Math.round((my - 200) / 10) + "<br>";
+};
+setInterval(update, 100);
 </script>
 <style type="text/css">
 canvas {
   background-color: #ff5d00;
+  display: block;
 }
 #textx {
   margin: 0 0 0 10px;
+}
+
+#rect1 {
+  display: inline-block;
+}
+
+#rect2 {
+  display: inline-block;
 }
 </style>
