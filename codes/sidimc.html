@@ -1,3 +1,6 @@
+<body id="page">
+
+</body>
 <canvas id="canvas"></canvas>
 <div id="dead">
   <h1>
@@ -14,7 +17,10 @@ You Win!
 </h1>
   <br>
 </div>
-<script>var canvas = document.getElementById("canvas");
+
+<script>
+var canvas = document.getElementById("canvas");
+var body = document.getElementById("page");
 var butt = document.getElementById("restart");
 var dead = document.getElementById("dead");
 var win = document.getElementById("win");
@@ -32,7 +38,12 @@ var sx = 0;
 var sy = 0;
 var level = function(layout) {
   this.level = layout;
-};
+  };
+  var levelw = 15;
+  var levelh = 8;
+  var levelsize = Math.floor(body.offsetWidth * 0.96 / levelw);
+canvas.width = levelw * levelsize;
+canvas.height = levelh * levelsize;
 var key = 0;
 var r = 0;
 var time = 0;
@@ -136,8 +147,8 @@ var layout = [
     "          xx  x",
     "          xx_  ",
     "s              ",
-    "_  _          _",
-    "     _  ___  _ ",
+    "_   _         _",
+    "        ___  _ ",
     "_______________"
   ],
 	[
@@ -162,6 +173,7 @@ var layout = [
 	"               ",
 	"_______________"
 	],
+  
   [
     "xxxxxxxxxxxxxxx", //thanks me
     "x  +++   +++  x",
@@ -213,8 +225,8 @@ var character = function(x, y) {
   this.under = false;
   this.x = x;
   this.y = y;
-  this.w = 20;
-  this.h = 40;
+  this.w = levelsize;
+  this.h = levelsize * 2;
   this.xvol = 0;
   this.yvol = 0;
   this.gold = 0;
@@ -230,15 +242,14 @@ butt.onclick = function restart() {
 var keydown = false;
 var pastkey = 0;
 character.prototype.draw = function() {
-  console.log(keyPressed);
-  if (this.y + this.h > 7.5 * 20) {
+  if (this.y + this.h >= 8 * levelsize) {
     this.health = 0;
   }
   if (!this.dead) {
     ctx.fillStyle = "black";
     ctx.fillRect(this.x, this.y, this.w, this.h);
     ctx.fillStyle = "green";
-    ctx.fillText("Level " + (key + 1), 0, 20)
+    ctx.fillText("Level " + (key + 1), 0, 40)
   }
   if (this.health < 20) {
     ctx.fillStyle = "red";
@@ -247,15 +258,16 @@ character.prototype.draw = function() {
   } else if (this.health >= 50) {
     ctx.fillStyle = "green";
   }
-  ctx.fillText(this.health + " Health", 0, 10);
+  ctx.font = "20px Arial";
+  ctx.fillText(this.health + " Health", 0, 20);
   ctx.fillStyle = "gold";
-  ctx.fillText(this.gold + " Gold", 250, 20);
-  ctx.fillText(time / 10, 250, 10);
+  ctx.fillText(this.gold + " Gold", levelsize * levelw - 100, 40);
+  ctx.fillText(time / 10, levelsize * levelw - 100, 20);
 };
 character.prototype.update = function() {
-  if (this.x < tile.endx[0] + 20 &&
+  if (this.x < tile.endx[0] + levelsize &&
     this.x + this.w > tile.endx[0] &&
-    this.y < tile.endy[0] + 20 &&
+    this.y < tile.endy[0] + levelsize &&
     this.h + this.y > tile.endy[0] && key + 1 < levels.length) {
     key++;
     if (key + 1 == levels.length) {
@@ -289,7 +301,7 @@ character.prototype.update = function() {
     setTimeout(function() {
       showwin = false
     }, 5000)
-    wint.innerHTML = "You Won In " + time / 10 + " Seconds";
+    wint.value = "You Won In " + time / 10 + " Seconds";
   } else {
     win.style.display = "none";
     dead.style.display = "none";
@@ -303,9 +315,9 @@ character.prototype.update = function() {
     this.dead = false;
   }
   for (var i = 0; i < tile.golx.length; i++) {
-    if (this.x < tile.golx[i] + 20 &&
+    if (this.x < tile.golx[i] + levelsize &&
       this.x + this.w > tile.golx[i] &&
-      this.y < tile.goly[i] + 20 &&
+      this.y < tile.goly[i] + levelsize &&
       this.h + this.y > tile.goly[i]) {
       tile.golx.splice(i, 1);
       tile.goly.splice(i, 1);
@@ -313,23 +325,23 @@ character.prototype.update = function() {
     }
   }
   for (var i = 0; i < tile.lavx.length; i++) {
-    if (this.x < tile.lavx[i] + 20 &&
+    if (this.x < tile.lavx[i] + levelsize &&
       this.x + this.w > tile.lavx[i] &&
-      this.y < tile.lavy[i] + 20 &&
+      this.y < tile.lavy[i] + levelsize &&
       this.h + this.y > tile.lavy[i] && this.health > 0) {
       this.health -= 10;
     }
   }
   r = 0;
   for (var i = 0; i < tile.boxy.length; i++) {
-    if (this.x + this.w > tile.boxx[i] && this.x < tile.boxx[i] + 20 && this.y <= tile.boxy[i]) {
+    if (this.x + this.w > tile.boxx[i] && this.x < tile.boxx[i] + levelsize && this.y <= tile.boxy[i]) {
       this.tilesover[r] = i;
       r++;
     }
   }
   r = 0;
   for (var i = 0; i < tile.boxy.length; i++) {
-    if (this.x + this.w > tile.boxx[i] && this.x < tile.boxx[i] + 20 && this.y >= tile.boxy[i]) {
+    if (this.x + this.w > tile.boxx[i] && this.x < tile.boxx[i] + levelsize && this.y >= tile.boxy[i]) {
       this.tilesunder[r] = i;
       r++;
     } else if (i >= tile.boxy.length - 1 && r == 0) {
@@ -344,18 +356,18 @@ character.prototype.update = function() {
     } else {
       this.onground = false;
     }
-    if (this.y < tile.boxy[this.tilesunder[i]] + 20 && this.y > tile.boxy[this.tilesunder[i]] && this.yvol < 0 && this.under == true) {
+    if (this.y < tile.boxy[this.tilesunder[i]] + levelsize && this.y > tile.boxy[this.tilesunder[i]] && this.yvol < 0 && this.under == true) {
       this.yvol = 0;
     }
   }
   //d = 68 39 a = 65 37 space = 32 38
-  this.x += this.xvol;
+  this.x += this.xvol / 20 * levelsize;
   if (this.yvol + this.y + this.h > tile.boxy[this.tilesover[0]]) {
     this.y = tile.boxy[this.tilesover[0]] - this.h;
   } else if (this.yvol + this.y + this.h > tile.boxy[this.tilesover[1]]) {
     this.y = tile.boxy[this.tilesover[1]] - this.h;
   } else {
-    this.y += this.yvol;
+    this.y += this.yvol / 20 * levelsize;
   }
   if (this.onground == false) {
     this.yvol += 0.5;
@@ -393,27 +405,27 @@ level.prototype.load = function() {
     for (var x = 0; x < this.level[i].length; x++) { //run code below for ever block in the string
       if (this.level[i].charAt(x) == "_") { //if its _ the draw a black box
         ctx.fillStyle = "black";
-        ctx.fillRect(x * 20, i * 20, 20, 20);
-        tile.boxx.push(x * 20);
-        tile.boxy.push(i * 20);
+        ctx.fillRect(x * levelsize, i * levelsize, levelsize, levelsize);
+        tile.boxx.push(x * levelsize);
+        tile.boxy.push(i * levelsize);
       } else if (this.level[i].charAt(x) == "x") { //if its x the draw a red box
         ctx.fillStyle = "red";
-        ctx.fillRect(x * 20, i * 20, 20, 20);
-        tile.lavx.push(x * 20);
-        tile.lavy.push(i * 20);
+        ctx.fillRect(x * levelsize, i * levelsize, levelsize, levelsize);
+        tile.lavx.push(x * levelsize);
+        tile.lavy.push(i * levelsize);
       } else if (this.level[i].charAt(x) == "+") { //if its + the draw a gold box
         ctx.fillStyle = "gold";
-        ctx.fillRect(x * 20, i * 20, 20, 20);
-        tile.golx.push(x * 20);
-        tile.goly.push(i * 20);
+        ctx.fillRect(x * levelsize, i * levelsize, levelsize, levelsize);
+        tile.golx.push(x * levelsize);
+        tile.goly.push(i * levelsize);
       } else if (this.level[i].charAt(x) == "e") { //if its e the draw a green box
         ctx.fillStyle = "green";
-        ctx.fillRect(x * 20, i * 20, 20, 20);
-        tile.endx.push(x * 20);
-        tile.endy.push(i * 20);
+        ctx.fillRect(x * levelsize, i * levelsize, levelsize, levelsize * 2);
+        tile.endx.push(x * levelsize);
+        tile.endy.push(i * levelsize - levelsize);
       } else if (this.level[i].charAt(x) == "s") { //if its s get the player start pos
-        sx = x * 20;
-        sy = i * 20 - 20;
+        sx = x * levelsize;
+        sy = i * levelsize - levelsize;
         p1.x = sx;
         p1.y = sy;
       } else {
@@ -425,18 +437,18 @@ level.prototype.load = function() {
 level.prototype.draw = function() {
   for (var i = 0; i < tile.boxx.length; i++) {
     ctx.fillStyle = "black";
-    ctx.fillRect(tile.boxx[i], tile.boxy[i], 20, 20);
+    ctx.fillRect(tile.boxx[i], tile.boxy[i], levelsize, levelsize);
   }
   for (var i = 0; i < tile.boxx.length; i++) {
     ctx.fillStyle = "red";
-    ctx.fillRect(tile.lavx[i], tile.lavy[i], 20, 20);
+    ctx.fillRect(tile.lavx[i], tile.lavy[i], levelsize, levelsize);
   }
   for (var i = 0; i < tile.boxx.length; i++) {
     ctx.fillStyle = "gold";
-    ctx.fillRect(tile.golx[i], tile.goly[i], 20, 20);
+    ctx.fillRect(tile.golx[i], tile.goly[i], levelsize, levelsize);
   }
   ctx.fillStyle = "green";
-  ctx.fillRect(tile.endx[0], tile.endy[0], 20, 20);
+  ctx.fillRect(tile.endx[0], tile.endy[0], levelsize, levelsize * 2);
 }
 for (var i = 0; i < layout.length; i++) {
   levels[i] = new level(layout[i]);
@@ -460,10 +472,10 @@ setInterval(function() {
     time++
   }
 }, 100);
+
 </script>
-<style>canvas {
-  width: 96%;
-  height: 96%;
+<style>
+canvas {
   margin-left: 2%;
   margin-top: 2%;
   background-color: #6292e0;
@@ -515,4 +527,5 @@ body {
 * {
   margin: 0;
 }
+
 </style>

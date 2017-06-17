@@ -166,7 +166,7 @@ $(document).ready(function() {
 		$("#phicl").removeClass('off').addClass('on');
 	});
 
-	$("sidi").mouseover(function () {
+	$("#sidi").mouseover(function () {
 		$("#sidil").removeClass('on').addClass('off');
 	});
 	$("#sidi").mouseout(function () {
