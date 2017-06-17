@@ -165,4 +165,11 @@ $(document).ready(function() {
 	$("#phic").mouseout(function () {
 		$("#phicl").removeClass('off').addClass('on');
 	});
+
+	$("sidi").mouseover(function () {
+		$("#sidil").removeClass('on').addClass('off');
+	});
+	$("#sidi").mouseout(function () {
+		$("#sidil").removeClass('off').addClass('on');
+	});
 });
