@@ -1,0 +1,518 @@
+<canvas id="canvas"></canvas>
+<div id="dead">
+  <h1>
+You died!
+</h1>
+  <br>
+  <button id="restart">
+    Restart
+  </button>
+</div>
+<div id="win">
+  <h1 id="wint">
+You Win!
+</h1>
+  <br>
+</div>
+<script>var canvas = document.getElementById("canvas");
+var butt = document.getElementById("restart");
+var dead = document.getElementById("dead");
+var win = document.getElementById("win");
+var wint = document.getElementById("wint");
+var ctx = canvas.getContext("2d");
+var keyPressed = {};
+
+document.addEventListener('keydown', function(e) {
+  keyPressed[e.keyCode] = true;
+}, false);
+document.addEventListener('keyup', function(e) {
+  keyPressed[e.keyCode] = false;
+}, false);
+var sx = 0;
+var sy = 0;
+var level = function(layout) {
+  this.level = layout;
+};
+var key = 0;
+var r = 0;
+var time = 0;
+var showwin = true;
+var done = false;
+var beta = false;
+var levels = [];
+var layout = [
+  [
+    "               ", //thanks me
+    "               ",
+    "         +     ",
+    "s       ___   e",
+    "____xx__   ____",
+    "   _xx_        ",
+    "   ____        ",
+    "               ",
+    "_______________"
+  ],
+  [
+    "               ", //thanks me
+    "    +          ",
+    "         +    e",
+    "s      _xx_____",
+    "___   __xx_    ",
+    "  _________    ",
+    "               ",
+    "               ",
+    "_______________"
+  ],
+  [
+    "               ", //thanks hannah
+    "               ",
+    "               ",
+    "              +",
+    "      _  _ _  e",
+    "s __xxxxxxxxxx_",
+    "_______________",
+    "               ",
+    "_______________"
+  ],
+  [
+    "               ", //thanks sierra
+    "               ",
+    "               ",
+    "               ",
+    "              e",
+    "s _x  +_xx__xx_",
+    "_____________  ",
+    "               ",
+    "_______________"
+  ],
+  [
+    "               ", //thanks me/cooper
+    "               ",
+    "               ",
+    "               ",
+    "s  +   +     +e",
+    "__  __  __ _xx_",
+    "           ____",
+    "               ",
+    "_______________"
+  ],
+  [
+    "               ", //thanks hannah
+    "       __   +  ",
+    "      x  xx___ ",
+    "   __x         ",
+    "              e",
+    "s         +  __",
+    "_______xx__xx__",
+    "               ",
+    "_______________"
+  ],
+  [
+    "               ", //thanks me
+    "   __          ",
+    "s __           ",
+    "___       +   e",
+    "      xxxx_  __",
+    "          _ +  ",
+    "          ___  ",
+    "               ",
+    "_______________"
+  ],
+  [
+    "               ", //thanks hannah
+    "      _        ",
+    "        x      ",
+    "   _    x     e",
+    "        x +    ",
+    "s   +   x      ",
+    "______xxx__xx__",
+    "               ",
+    "_______________"
+  ],
+	[
+    "e              ", //thanks cooper
+    "___________   _",
+    "               ",
+    "          xx  x",
+    "          xx_  ",
+    "s              ",
+    "_  _          _",
+    "     _  ___  _ ",
+    "_______________"
+  ],
+	[
+  "               ", //thanks sierra
+  "               ",
+  "  +         +  ",
+  " ____      ____",
+  "               ",
+  " s      +     e",
+	"______xxxx_____",
+	"               ",
+	"_______________"
+	],
+	[
+	"               ", //thanks sierra
+  "               ",
+  "               ",
+  "           +e  ",
+  " s          x  ",
+  " _   +_     _  ",
+  "xxxxxxxxxxxxxxx",
+	"               ",
+	"_______________"
+	],
+  [
+    "xxxxxxxxxxxxxxx", //thanks me
+    "x  +++   +++  x",
+    "x +   + +   + x",
+    "x +     +     x",
+    "x +  ++ +  ++ x",
+    "x_ +++ _ +++ _x",
+    "x__ s ___   __x",
+    "_______________",
+    "_______________"
+  ]
+];
+if (beta == true) {
+  key = layout.length - 2;
+}
+/* template
+ [
+  "               ",
+  "               ",
+  "               ",
+  "               ",
+  "               ",
+  "               ",
+	"               ",
+	"               ",
+	"_______________"
+	],
+	dont touch bottum line
+	secound from bottum line is half cut of
+	s- spawn +- gold x- lava e- end
+	*/
+var holder = [];
+var tile = {
+  boxx: [],
+  boxy: [],
+  lavx: [],
+  lavy: [],
+  golx: [],
+  goly: [],
+  endx: [],
+  endy: [],
+  onbox: []
+};
+var boxx = [];
+var boxy = [];
+var character = function(x, y) {
+  this.tilesover = [];
+  this.tilesunder = [];
+  this.under = false;
+  this.x = x;
+  this.y = y;
+  this.w = 20;
+  this.h = 40;
+  this.xvol = 0;
+  this.yvol = 0;
+  this.gold = 0;
+  this.health = 100;
+  this.dead = false;
+  this.onground = false;
+};
+butt.onclick = function restart() {
+  p1.x = sx;
+  p1.y = sy;
+  p1.health = 100;
+}
+var keydown = false;
+var pastkey = 0;
+character.prototype.draw = function() {
+  console.log(keyPressed);
+  if (this.y + this.h > 7.5 * 20) {
+    this.health = 0;
+  }
+  if (!this.dead) {
+    ctx.fillStyle = "black";
+    ctx.fillRect(this.x, this.y, this.w, this.h);
+    ctx.fillStyle = "green";
+    ctx.fillText("Level " + (key + 1), 0, 20)
+  }
+  if (this.health < 20) {
+    ctx.fillStyle = "red";
+  } else if (this.health < 50) {
+    ctx.fillStyle = "yellow";
+  } else if (this.health >= 50) {
+    ctx.fillStyle = "green";
+  }
+  ctx.fillText(this.health + " Health", 0, 10);
+  ctx.fillStyle = "gold";
+  ctx.fillText(this.gold + " Gold", 250, 20);
+  ctx.fillText(time / 10, 250, 10);
+};
+character.prototype.update = function() {
+  if (this.x < tile.endx[0] + 20 &&
+    this.x + this.w > tile.endx[0] &&
+    this.y < tile.endy[0] + 20 &&
+    this.h + this.y > tile.endy[0] && key + 1 < levels.length) {
+    key++;
+    if (key + 1 == levels.length) {
+      done = true;
+    }
+    tile = {
+      boxx: [],
+      boxy: [],
+      lavx: [],
+      lavy: [],
+      golx: [],
+      goly: [],
+      endx: [],
+      endy: [],
+      onbox: []
+    }
+    if (this.health <= 90) {
+      this.health += 10;
+    }
+    levels[key].load();
+  }
+  if (this.onground) {
+    this.xvol *= 0.95;
+  }
+  if (done == true) {
+    if (showwin == true) {
+      win.style.display = "block";
+    } else {
+      win.style.display = "none";
+    }
+    setTimeout(function() {
+      showwin = false
+    }, 5000)
+    wint.innerHTML = "You Won In " + time / 10 + " Seconds";
+  } else {
+    win.style.display = "none";
+    dead.style.display = "none";
+  }
+  if (this.health <= 0) {
+    this.dead = true;
+    dead.style.display = "block";
+    this.xvol = 0;
+  } else {
+    dead.style.display = "none";
+    this.dead = false;
+  }
+  for (var i = 0; i < tile.golx.length; i++) {
+    if (this.x < tile.golx[i] + 20 &&
+      this.x + this.w > tile.golx[i] &&
+      this.y < tile.goly[i] + 20 &&
+      this.h + this.y > tile.goly[i]) {
+      tile.golx.splice(i, 1);
+      tile.goly.splice(i, 1);
+      this.gold++;
+    }
+  }
+  for (var i = 0; i < tile.lavx.length; i++) {
+    if (this.x < tile.lavx[i] + 20 &&
+      this.x + this.w > tile.lavx[i] &&
+      this.y < tile.lavy[i] + 20 &&
+      this.h + this.y > tile.lavy[i] && this.health > 0) {
+      this.health -= 10;
+    }
+  }
+  r = 0;
+  for (var i = 0; i < tile.boxy.length; i++) {
+    if (this.x + this.w > tile.boxx[i] && this.x < tile.boxx[i] + 20 && this.y <= tile.boxy[i]) {
+      this.tilesover[r] = i;
+      r++;
+    }
+  }
+  r = 0;
+  for (var i = 0; i < tile.boxy.length; i++) {
+    if (this.x + this.w > tile.boxx[i] && this.x < tile.boxx[i] + 20 && this.y >= tile.boxy[i]) {
+      this.tilesunder[r] = i;
+      r++;
+    } else if (i >= tile.boxy.length - 1 && r == 0) {
+      this.under = false;
+    } else {
+      this.under = true;
+    }
+  }
+  for (var i = 0; i < 1; i++) {
+    if (this.y + this.h >= tile.boxy[this.tilesover[i]] && this.y + this.h <= tile.boxy[this.tilesover[i]]) {
+      this.onground = true;
+    } else {
+      this.onground = false;
+    }
+    if (this.y < tile.boxy[this.tilesunder[i]] + 20 && this.y > tile.boxy[this.tilesunder[i]] && this.yvol < 0 && this.under == true) {
+      this.yvol = 0;
+    }
+  }
+  //d = 68 39 a = 65 37 space = 32 38
+  this.x += this.xvol;
+  if (this.yvol + this.y + this.h > tile.boxy[this.tilesover[0]]) {
+    this.y = tile.boxy[this.tilesover[0]] - this.h;
+  } else if (this.yvol + this.y + this.h > tile.boxy[this.tilesover[1]]) {
+    this.y = tile.boxy[this.tilesover[1]] - this.h;
+  } else {
+    this.y += this.yvol;
+  }
+  if (this.onground == false) {
+    this.yvol += 0.5;
+  } else {
+    this.yvol = 0;
+  }
+  //window.addEventListener('keydown', function(e) {
+  // keydown = true;
+  //  pastkey = e.keyCode;
+  //});
+  //window.addEventListener('keyup', function(e) {
+  //  keydown = false;
+  //});
+  if (keyPressed[68] || keyPressed[39]) {
+    if (this.xvol < 4) {
+      this.xvol += 0.10;
+    }
+  }
+  if (keyPressed[65] || keyPressed[37]) {
+    if (this.xvol > -4) {
+      this.xvol -= 0.10;
+    }
+  }
+  if (keyPressed[32] || keyPressed[38]) {
+    if (this.onground) {
+      this.yvol -= 5;
+    }
+  }
+};
+//"             "marker
+//_ floor x lava + gold coin s spawn
+level.prototype.load = function() {
+  ctx.clearRect(0, 0, 10000, 10000);
+  for (var i = 0; i < this.level.length; i++) { //run code below for each level object
+    for (var x = 0; x < this.level[i].length; x++) { //run code below for ever block in the string
+      if (this.level[i].charAt(x) == "_") { //if its _ the draw a black box
+        ctx.fillStyle = "black";
+        ctx.fillRect(x * 20, i * 20, 20, 20);
+        tile.boxx.push(x * 20);
+        tile.boxy.push(i * 20);
+      } else if (this.level[i].charAt(x) == "x") { //if its x the draw a red box
+        ctx.fillStyle = "red";
+        ctx.fillRect(x * 20, i * 20, 20, 20);
+        tile.lavx.push(x * 20);
+        tile.lavy.push(i * 20);
+      } else if (this.level[i].charAt(x) == "+") { //if its + the draw a gold box
+        ctx.fillStyle = "gold";
+        ctx.fillRect(x * 20, i * 20, 20, 20);
+        tile.golx.push(x * 20);
+        tile.goly.push(i * 20);
+      } else if (this.level[i].charAt(x) == "e") { //if its e the draw a green box
+        ctx.fillStyle = "green";
+        ctx.fillRect(x * 20, i * 20, 20, 20);
+        tile.endx.push(x * 20);
+        tile.endy.push(i * 20);
+      } else if (this.level[i].charAt(x) == "s") { //if its s get the player start pos
+        sx = x * 20;
+        sy = i * 20 - 20;
+        p1.x = sx;
+        p1.y = sy;
+      } else {
+
+      }
+    }
+  }
+};
+level.prototype.draw = function() {
+  for (var i = 0; i < tile.boxx.length; i++) {
+    ctx.fillStyle = "black";
+    ctx.fillRect(tile.boxx[i], tile.boxy[i], 20, 20);
+  }
+  for (var i = 0; i < tile.boxx.length; i++) {
+    ctx.fillStyle = "red";
+    ctx.fillRect(tile.lavx[i], tile.lavy[i], 20, 20);
+  }
+  for (var i = 0; i < tile.boxx.length; i++) {
+    ctx.fillStyle = "gold";
+    ctx.fillRect(tile.golx[i], tile.goly[i], 20, 20);
+  }
+  ctx.fillStyle = "green";
+  ctx.fillRect(tile.endx[0], tile.endy[0], 20, 20);
+}
+for (var i = 0; i < layout.length; i++) {
+  levels[i] = new level(layout[i]);
+}
+var p1 = new character(0, 0);
+
+function update() {
+  p1.update();
+};
+levels[key].load();
+
+function draw() {
+  ctx.clearRect(0, 0, 10000, 10000);
+  levels[key].draw();
+  p1.draw();
+}
+setInterval(draw, 17);
+setInterval(update, 17);
+setInterval(function() {
+  if (done == false) {
+    time++
+  }
+}, 100);
+</script>
+<style>canvas {
+  width: 96%;
+  height: 96%;
+  margin-left: 2%;
+  margin-top: 2%;
+  background-color: #6292e0;
+}
+
+body {
+  background-color: #a8c9ff;
+}
+
+#restart {
+  font-size: 30px;
+  font-weight: bolder;
+  text-decoration: none;
+  border: none;
+  background-color: green;
+  border-radius: 7px;
+}
+
+#dead {
+  width: 90%;
+  height: 63%;
+  margin: 5% 5%;
+  top: 0;
+  background-color: red;
+  position: absolute;
+  z-index: 666;
+  text-align: center;
+  display: none;
+  font-size: 25px;
+  border-radius: 15px;
+  opacity: 0.80;
+}
+
+#win {
+  width: 90%;
+  height: 63%;
+  margin: 5% 5%;
+  top: 0;
+  background-color: green;
+  position: absolute;
+  z-index: 666;
+  text-align: center;
+  display: none;
+  font-size: 40px;
+  border-radius: 15px;
+  opacity: 0.80;
+}
+
+* {
+  margin: 0;
+}
+</style>
