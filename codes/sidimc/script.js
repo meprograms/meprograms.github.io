@@ -1,24 +1,3 @@
-<body id="page">
-
-</body>
-<canvas id="canvas"></canvas>
-<div id="dead">
-  <h1>
-You died!
-</h1>
-  <br>
-  <button id="restart">
-    Restart
-  </button>
-</div>
-<div id="win">
-  <h1 id="wint">
-You Win!
-</h1>
-  <br>
-</div>
-
-<script>
 var canvas = document.getElementById("canvas");
 var body = document.getElementById("page");
 var butt = document.getElementById("restart");
@@ -27,7 +6,8 @@ var win = document.getElementById("win");
 var wint = document.getElementById("wint");
 var ctx = canvas.getContext("2d");
 var keyPressed = {};
-
+var goldimg = new Image();
+goldimg.src = "gold.png";
 document.addEventListener('keydown', function(e) {
   keyPressed[e.keyCode] = true;
 }, false);
@@ -243,6 +223,9 @@ var character = function(x, y) {
   this.health = 100;
   this.dead = false;
   this.onground = false;
+  this.gaf = 0;
+  this.fgaf = 0;
+  this.dir = 0;
 };
 butt.onclick = function restart() {
   p1.x = sx;
@@ -275,6 +258,15 @@ character.prototype.draw = function() {
   ctx.fillText(time / 10, levelsize * levelw - 100, 20);
 };
 character.prototype.update = function() {
+  if(this.xvol < 1 && this.xvol > -1) { //foward
+    this.dir = 0;
+  }
+  else if(this.xvol >= 1) {//right
+    this.dir = 1;
+  }
+  else if (this.xvol <= -1) {//left
+    this.dir = 2;
+  }
   if (this.x < tile.endx[0] + levelsize &&
     this.x + this.w > tile.endx[0] &&
     this.y < tile.endy[0] + levelsize &&
@@ -445,6 +437,7 @@ level.prototype.load = function() {
   }
 };
 level.prototype.draw = function() {
+  p1.gaf += 0.2;
   for (var i = 0; i < tile.boxx.length; i++) {
     ctx.fillStyle = "black";
     ctx.fillRect(tile.boxx[i], tile.boxy[i], levelsize, levelsize);
@@ -459,8 +452,8 @@ level.prototype.draw = function() {
     ctx.fillRect(tile.lavx[i], tile.lavy[i], levelsize, levelsize);
   }
   for (var i = 0; i < tile.golx.length; i++) {
-    ctx.fillStyle = "gold";
-    ctx.fillRect(tile.golx[i], tile.goly[i], levelsize, levelsize);
+    ctx.drawImage(goldimg, 20 * p1.fgaf, 0, 20, 20, tile.golx[i], tile.goly[i], levelsize, levelsize);
+    p1.fgaf = Math.floor(p1.gaf % 11);
   }
   ctx.fillStyle = "green";
   ctx.fillRect(tile.endx[0], tile.endy[0], levelsize, levelsize * 2);
@@ -487,59 +480,3 @@ setInterval(function() {
     time++
   }
 }, 100);
-</script>
-<style>
-canvas {
-  margin-left: 2%;
-  margin-top: 2%;
-  background-color: #6292e0;
-}
-
-body {
-  background-color: #a8c9ff;
-}
-
-#restart {
-  font-size: 30px;
-  font-weight: bolder;
-  text-decoration: none;
-  border: none;
-  background-color: green;
-  border-radius: 7px;
-}
-
-#dead {
-  width: 90%;
-  height: 63%;
-  margin: 5% 5%;
-  top: 0;
-  background-color: red;
-  position: absolute;
-  z-index: 666;
-  text-align: center;
-  display: none;
-  font-size: 25px;
-  border-radius: 15px;
-  opacity: 0.80;
-}
-
-#win {
-  width: 90%;
-  height: 63%;
-  margin: 5% 5%;
-  top: 0;
-  background-color: green;
-  position: absolute;
-  z-index: 666;
-  text-align: center;
-  display: none;
-  font-size: 40px;
-  border-radius: 15px;
-  opacity: 0.80;
-}
-
-* {
-  margin: 0;
-}
-
-</style>
