@@ -173,7 +173,17 @@ var layout = [
 	"               ",
 	"_______________"
 	],
-  
+	[
+	"               ", //Thanks Sierra
+  "               ",
+  "               ",
+  "               ",
+  "               ",
+  "   s  +         ",
+	" ___xxxx___ e xx",
+	"               ",
+	"_______________"
+	],
   [
     "xxxxxxxxxxxxxxx", //thanks me
     "x  +++   +++  x",
@@ -439,11 +449,16 @@ level.prototype.draw = function() {
     ctx.fillStyle = "black";
     ctx.fillRect(tile.boxx[i], tile.boxy[i], levelsize, levelsize);
   }
-  for (var i = 0; i < tile.boxx.length; i++) {
-    ctx.fillStyle = "red";
+  for (var i = 0; i < tile.lavx.length; i++) {
+	ctx.fillStyle = "red";
+	for (var x = 0; x < tile.lavx.length; x++) {
+	if (tile.lavx[i] == tile.lavx[x] && tile.lavy[i] - levelsize == tile.lavy[x]) {
+	ctx.fillStyle = "#ff5d00";
+	}
+	}
     ctx.fillRect(tile.lavx[i], tile.lavy[i], levelsize, levelsize);
   }
-  for (var i = 0; i < tile.boxx.length; i++) {
+  for (var i = 0; i < tile.golx.length; i++) {
     ctx.fillStyle = "gold";
     ctx.fillRect(tile.golx[i], tile.goly[i], levelsize, levelsize);
   }
@@ -472,7 +487,6 @@ setInterval(function() {
     time++
   }
 }, 100);
-
 </script>
 <style>
 canvas {
