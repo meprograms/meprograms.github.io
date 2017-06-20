@@ -302,8 +302,8 @@ character.prototype.update = function() {
     }
     setTimeout(function() {
       showwin = false
-    }, 5000)
-    wint.value = "You Won In " + time / 10 + " Seconds";
+    }, 3000)
+    wint.innerHTML = "You Won In " + time / 10 + " Seconds";
   } else {
     win.style.display = "none";
     dead.style.display = "none";
@@ -452,8 +452,11 @@ level.prototype.draw = function() {
     ctx.fillRect(tile.lavx[i], tile.lavy[i], levelsize, levelsize);
   }
   for (var i = 0; i < tile.golx.length; i++) {
-    ctx.drawImage(goldimg, 20 * p1.fgaf, 0, 20, 20, tile.golx[i], tile.goly[i], levelsize, levelsize);
-    p1.fgaf = Math.floor(p1.gaf % 11);
+	if(p1.gaf > 11) {
+		p1.gaf = 0;
+	}
+    p1.fgaf = Math.floor(p1.gaf);
+	ctx.drawImage(goldimg, 20 * p1.fgaf, 0, 20, 20, tile.golx[i], tile.goly[i], levelsize, levelsize);
   }
   ctx.fillStyle = "green";
   ctx.fillRect(tile.endx[0], tile.endy[0], levelsize, levelsize * 2);
