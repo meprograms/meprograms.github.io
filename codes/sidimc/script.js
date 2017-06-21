@@ -7,7 +7,15 @@ var wint = document.getElementById("wint");
 var ctx = canvas.getContext("2d");
 var keyPressed = {};
 var goldimg = new Image();
+var lavaimg = new Image();
+var underlavaimg = new Image();
+var groundimg = new Image();
+var endimg = new Image();
 goldimg.src = "gold.png";
+lavaimg.src = "lava.png";
+underlavaimg.src = "underlava.png";
+groundimg.src = "ground.png";
+endimg.src = "glitterchamber.png";
 document.addEventListener('keydown', function(e) {
   keyPressed[e.keyCode] = true;
 }, false);
@@ -30,6 +38,7 @@ var time = 0;
 var showwin = true;
 var done = false;
 var beta = false;
+var runtimer = true;
 var levels = [];
 var layout = [
   [
@@ -70,7 +79,7 @@ var layout = [
     "               ",
     "               ",
     "               ",
-    "              e",
+    "         +    e",
     "s _x  +_xx__xx_",
     "_____________  ",
     "               ",
@@ -80,8 +89,8 @@ var layout = [
     "               ", //thanks me/cooper
     "               ",
     "               ",
-    "               ",
-    "s  +   +     +e",
+    "             + ",
+    "s  +   +      e",
     "__  __  __ _xx_",
     "           ____",
     "               ",
@@ -121,7 +130,7 @@ var layout = [
     "_______________"
   ],
 	[
-    "e              ", //thanks cooper
+    "e   +          ", //thanks cooper
     "___________   _",
     "               ",
     "          xx  x",
@@ -159,9 +168,9 @@ var layout = [
   "               ",
   "               ",
   "               ",
-  "   s  +         ",
-	" ___xxxx___ e xx",
-	"               ",
+  "   s  +        ",
+	" ___xxxx___ e x",
+	"          _____",
 	"_______________"
 	],
   [
@@ -209,6 +218,7 @@ var tile = {
 };
 var boxx = [];
 var boxy = [];
+var surface = true;
 var character = function(x, y) {
   this.tilesover = [];
   this.tilesunder = [];
@@ -224,9 +234,12 @@ var character = function(x, y) {
   this.dead = false;
   this.onground = false;
   this.gaf = 0;
+  this.eaf = 0;
   this.fgaf = 0;
+  this.feaf = 0;
   this.dir = 0;
 };
+var endstate = 0;
 butt.onclick = function restart() {
   p1.x = sx;
   p1.y = sy;
@@ -258,6 +271,9 @@ character.prototype.draw = function() {
   ctx.fillText(time / 10, levelsize * levelw - 100, 20);
 };
 character.prototype.update = function() {
+      if (key + 1 == levels.length) {
+      done = true;
+    }
   if(this.xvol < 1 && this.xvol > -1) { //foward
     this.dir = 0;
   }
@@ -270,11 +286,13 @@ character.prototype.update = function() {
   if (this.x < tile.endx[0] + levelsize &&
     this.x + this.w > tile.endx[0] &&
     this.y < tile.endy[0] + levelsize &&
-    this.h + this.y > tile.endy[0] && key + 1 < levels.length) {
+    this.h + this.y > tile.endy[0]) {
+    runtimer = false;
+    endstate = 0;
+  p1.eaf = 0;
+    p1.x = -1000;
+    setTimeout(function() {
     key++;
-    if (key + 1 == levels.length) {
-      done = true;
-    }
     tile = {
       boxx: [],
       boxy: [],
@@ -290,6 +308,7 @@ character.prototype.update = function() {
       this.health += 10;
     }
     levels[key].load();
+    }, 1000);
   }
   if (this.onground) {
     this.xvol *= 0.95;
@@ -402,6 +421,9 @@ character.prototype.update = function() {
 //"             "marker
 //_ floor x lava + gold coin s spawn
 level.prototype.load = function() {
+  runtimer = true;
+  endstate = 1;
+  p1.eaf = 0;
   ctx.clearRect(0, 0, 10000, 10000);
   for (var i = 0; i < this.level.length; i++) { //run code below for each level object
     for (var x = 0; x < this.level[i].length; x++) { //run code below for ever block in the string
@@ -416,8 +438,6 @@ level.prototype.load = function() {
         tile.lavx.push(x * levelsize);
         tile.lavy.push(i * levelsize);
       } else if (this.level[i].charAt(x) == "+") { //if its + the draw a gold box
-        ctx.fillStyle = "gold";
-        ctx.fillRect(x * levelsize, i * levelsize, levelsize, levelsize);
         tile.golx.push(x * levelsize);
         tile.goly.push(i * levelsize);
       } else if (this.level[i].charAt(x) == "e") { //if its e the draw a green box
@@ -438,28 +458,39 @@ level.prototype.load = function() {
 };
 level.prototype.draw = function() {
   p1.gaf += 0.2;
+  p1.eaf += 0.2;
   for (var i = 0; i < tile.boxx.length; i++) {
-    ctx.fillStyle = "black";
-    ctx.fillRect(tile.boxx[i], tile.boxy[i], levelsize, levelsize);
+    ctx.drawImage(groundimg, tile.boxx[i], tile.boxy[i], levelsize, levelsize);
   }
   for (var i = 0; i < tile.lavx.length; i++) {
 	ctx.fillStyle = "red";
+  surface = true;
 	for (var x = 0; x < tile.lavx.length; x++) {
 	if (tile.lavx[i] == tile.lavx[x] && tile.lavy[i] - levelsize == tile.lavy[x]) {
-	ctx.fillStyle = "#ff5d00";
+	surface = false;
 	}
+  else {
+  }
 	}
-    ctx.fillRect(tile.lavx[i], tile.lavy[i], levelsize, levelsize);
+  if (surface == true) {
+    ctx.drawImage(lavaimg, tile.lavx[i], tile.lavy[i], levelsize, levelsize);
+  }
+  else {
+    ctx.drawImage(underlavaimg, tile.lavx[i], tile.lavy[i], levelsize, levelsize);
+  }
   }
   for (var i = 0; i < tile.golx.length; i++) {
 	if(p1.gaf > 11) {
-		p1.gaf = 0;
-	}
-    p1.fgaf = Math.floor(p1.gaf);
+    p1.gaf = 0;
+  }
 	ctx.drawImage(goldimg, 20 * p1.fgaf, 0, 20, 20, tile.golx[i], tile.goly[i], levelsize, levelsize);
   }
-  ctx.fillStyle = "green";
-  ctx.fillRect(tile.endx[0], tile.endy[0], levelsize, levelsize * 2);
+  if(p1.eaf > 5) {
+    p1.eaf = 5;
+  }
+    p1.fgaf = Math.floor(p1.gaf);
+    p1.feaf = Math.floor(p1.eaf);
+  ctx.drawImage(endimg, 20 * p1.feaf, endstate * 40, 20, 40, tile.endx[0], tile.endy[0], levelsize, levelsize * 2);
 }
 for (var i = 0; i < layout.length; i++) {
   levels[i] = new level(layout[i]);
@@ -479,7 +510,7 @@ function draw() {
 setInterval(draw, 17);
 setInterval(update, 17);
 setInterval(function() {
-  if (done == false) {
-    time++
+  if (done == false && runtimer == true && p1.dead == false) {
+    time++;
   }
 }, 100);
