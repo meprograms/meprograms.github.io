@@ -4,6 +4,7 @@ var butt = document.getElementById("restart");
 var dead = document.getElementById("dead");
 var win = document.getElementById("win");
 var wint = document.getElementById("wint");
+var resetb = document.getElementById("reset");
 var ctx = canvas.getContext("2d");
 var keyPressed = {};
 var goldimg = new Image();
@@ -225,10 +226,14 @@ var character = function(x, y) {
   this.under = false;
   this.x = x;
   this.y = y;
+  this.ex = 0;
+  this.ey = 0;
   this.w = levelsize;
   this.h = levelsize * 2;
   this.xvol = 0;
   this.yvol = 0;
+  this.exvol = 0;
+  this.eyvol = 0;
   this.gold = 0;
   this.health = 100;
   this.dead = false;
@@ -290,7 +295,14 @@ character.prototype.update = function() {
     runtimer = false;
     endstate = 0;
   p1.eaf = 0;
-    p1.x = -1000;
+    p1.ex = p1.x;
+    p1.ey = p1.y;
+    p1.exvol = p1.xvol;
+    p1.eyvol = p1.yvol;
+    p1.x = -levelsize * 500;
+    if (this.health <= 90) {
+      this.health += 10;
+    }
     setTimeout(function() {
     key++;
     tile = {
@@ -303,9 +315,6 @@ character.prototype.update = function() {
       endx: [],
       endy: [],
       onbox: []
-    }
-    if (this.health <= 90) {
-      this.health += 10;
     }
     levels[key].load();
     }, 1000);
@@ -421,6 +430,10 @@ character.prototype.update = function() {
 //"             "marker
 //_ floor x lava + gold coin s spawn
 level.prototype.load = function() {
+  p1.x = p1.ex;
+  p1.y = p1.ey;
+  p1.xvol = p1.exvol;
+  p1.yvol = p1.eyvol;
   runtimer = true;
   endstate = 1;
   p1.eaf = 0;
@@ -491,6 +504,29 @@ level.prototype.draw = function() {
     p1.fgaf = Math.floor(p1.gaf);
     p1.feaf = Math.floor(p1.eaf);
   ctx.drawImage(endimg, 20 * p1.feaf, endstate * 40, 20, 40, tile.endx[0], tile.endy[0], levelsize, levelsize * 2);
+}
+resetb.onclick = function reset() {
+  done = false;
+  tile = {
+      boxx: [],
+      boxy: [],
+      lavx: [],
+      lavy: [],
+      golx: [],
+      goly: [],
+      endx: [],
+      endy: [],
+      onbox: []
+    }
+  p1.gold = 0;
+  time = 0;
+  p1.health = 100;
+  key = 0;
+  levels[key].load();
+  p1.x = 0;
+  p1.y = levelsize * 2;
+  p1.xvol = 0;
+  p1.yvol = 0;
 }
 for (var i = 0; i < layout.length; i++) {
   levels[i] = new level(layout[i]);
