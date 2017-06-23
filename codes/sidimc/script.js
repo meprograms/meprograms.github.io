@@ -38,7 +38,7 @@ var r = 0;
 var time = 0;
 var showwin = true;
 var done = false;
-var beta = true;
+var beta = false;
 var runtimer = true;
 var pb = {
   time: 0,
