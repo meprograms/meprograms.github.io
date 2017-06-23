@@ -5,6 +5,7 @@ var dead = document.getElementById("dead");
 var win = document.getElementById("win");
 var wint = document.getElementById("wint");
 var resetb = document.getElementById("reset");
+var resume = document.getElementById("resume");
 var ctx = canvas.getContext("2d");
 var keyPressed = {};
 var goldimg = new Image();
@@ -259,6 +260,7 @@ var character = function(x, y) {
   this.feaf = 0;
   this.dir = 0;
   this.addgold = true;
+  this.menu = false;
 };
 var endstate = 0;
 butt.onclick = function restart() {
@@ -292,6 +294,12 @@ character.prototype.draw = function() {
   ctx.fillText(time / 10 + " | " + pb.time, levelsize * levelw - 100, 20);
 };
 character.prototype.update = function() {
+  if(this.menu) {
+    menu.style.display = "block";
+  }
+  else {
+    menu.style.display = "none";
+  }
       if (key + 1 == levels.length) {
       done = true;
     }
@@ -429,13 +437,6 @@ character.prototype.update = function() {
   } else {
     this.yvol = 0;
   }
-  //window.addEventListener('keydown', function(e) {
-  // keydown = true;
-  //  pastkey = e.keyCode;
-  //});
-  //window.addEventListener('keyup', function(e) {
-  //  keydown = false;
-  //});
   if (keyPressed[68] || keyPressed[39]) {
     if (this.xvol < 4) {
       this.xvol += 0.10;
@@ -450,6 +451,9 @@ character.prototype.update = function() {
     if (this.onground) {
       this.yvol -= 5;
     }
+  }
+  if (keyPressed[27]) {
+    this.menu = true;
   }
 };
 //"             "marker
@@ -529,6 +533,9 @@ level.prototype.draw = function() {
     p1.fgaf = Math.floor(p1.gaf);
     p1.feaf = Math.floor(p1.eaf);
   ctx.drawImage(endimg, 20 * p1.feaf, endstate * 40, 20, 40, tile.endx[0], tile.endy[0], levelsize, levelsize * 2);
+}
+resume.onclick = function() {
+  p1.menu = false;
 }
 resetb.onclick = function reset() {
   done = false;
