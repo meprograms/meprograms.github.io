@@ -38,8 +38,23 @@ var r = 0;
 var time = 0;
 var showwin = true;
 var done = false;
-var beta = false;
+var beta = true;
 var runtimer = true;
+var pb = {
+  time: 0,
+  gold: 0,
+  tgold: 0,
+};
+if (localStorage.getItem("time") && localStorage.getItem("gold") && localStorage.getItem("tgold")) {
+  pb.time = localStorage.getItem("time");
+  pb.gold = localStorage.getItem("gold");
+  pb.tgold = localStorage.getItem("tgold");
+}
+else {
+  localStorage.setItem("time", 0);
+  localStorage.setItem("gold", 0);
+  localStorage.setItem("tgold", 0);
+}
 var levels = [];
 var layout = [
   [
@@ -130,7 +145,7 @@ var layout = [
     "               ",
     "_______________"
   ],
-	[
+  [
     "e   +          ", //thanks cooper
     "___________   _",
     "               ",
@@ -141,39 +156,39 @@ var layout = [
     "        ___  _ ",
     "_______________"
   ],
-	[
+  [
   "               ", //thanks sierra
   "               ",
   "  +         +  ",
   " ____      ____",
   "               ",
-  " s      +     e",
-	"______xxxx_____",
-	"               ",
-	"_______________"
-	],
-	[
-	"               ", //thanks sierra
+  " s       +    e",
+  "______xxxx_____",
+  "               ",
+  "_______________"
+  ],
+  [
+  "               ", //thanks sierra
   "               ",
   "               ",
   "           +e  ",
   " s          x  ",
   " _   +_     _  ",
   "xxxxxxxxxxxxxxx",
-	"               ",
-	"_______________"
-	],
-	[
-	"               ", //Thanks Sierra
+  "               ",
+  "_______________"
+  ],
+  [
+  "               ", //Thanks Sierra
   "               ",
   "               ",
   "               ",
   "               ",
   "   s  +        ",
-	" ___xxxx___ e x",
-	"          _____",
-	"_______________"
-	],
+  " ___xxxx___ e x",
+  "          _____",
+  "_______________"
+  ],
   [
     "xxxxxxxxxxxxxxx", //thanks me
     "x  +++   +++  x",
@@ -197,14 +212,14 @@ if (beta == true) {
   "               ",
   "               ",
   "               ",
-	"               ",
-	"               ",
-	"_______________"
-	],
-	dont touch bottum line
-	secound from bottum line is half cut of
-	s- spawn +- gold x- lava e- end
-	*/
+  "               ",
+  "               ",
+  "_______________"
+  ],
+  dont touch bottum line
+  secound from bottum line is half cut of
+  s- spawn +- gold x- lava e- end
+  */
 var holder = [];
 var tile = {
   boxx: [],
@@ -243,6 +258,7 @@ var character = function(x, y) {
   this.fgaf = 0;
   this.feaf = 0;
   this.dir = 0;
+  this.addgold = true;
 };
 var endstate = 0;
 butt.onclick = function restart() {
@@ -272,8 +288,8 @@ character.prototype.draw = function() {
   ctx.font = "20px Arial";
   ctx.fillText(this.health + " Health", 0, 20);
   ctx.fillStyle = "gold";
-  ctx.fillText(this.gold + " Gold", levelsize * levelw - 100, 40);
-  ctx.fillText(time / 10, levelsize * levelw - 100, 20);
+  ctx.fillText(this.gold + " | " + pb.gold + " Gold", levelsize * levelw - 100, 40);
+  ctx.fillText(time / 10 + " | " + pb.time, levelsize * levelw - 100, 20);
 };
 character.prototype.update = function() {
       if (key + 1 == levels.length) {
@@ -323,6 +339,14 @@ character.prototype.update = function() {
     this.xvol *= 0.95;
   }
   if (done == true) {
+    if (done == true) {
+      if (this.gold > pb.gold) {
+        pb.gold = this.gold;
+      }
+      if (time / 10 < pb.time && time !== 0) {
+        pb.time = time / 10;
+      }
+    }
     if (showwin == true) {
       win.style.display = "block";
     } else {
@@ -331,7 +355,7 @@ character.prototype.update = function() {
     setTimeout(function() {
       showwin = false
     }, 3000)
-    wint.innerHTML = "You Won In " + time / 10 + " Seconds";
+    wint.innerHTML = "You Won In " + time / 10 + " Seconds" + "<br>" + "Your Best Is " + pb.time + " Seconds";
   } else {
     win.style.display = "none";
     dead.style.display = "none";
@@ -352,6 +376,7 @@ character.prototype.update = function() {
       tile.golx.splice(i, 1);
       tile.goly.splice(i, 1);
       this.gold++;
+      pb.tgold ++;
     }
   }
   for (var i = 0; i < tile.lavx.length; i++) {
@@ -476,15 +501,15 @@ level.prototype.draw = function() {
     ctx.drawImage(groundimg, tile.boxx[i], tile.boxy[i], levelsize, levelsize);
   }
   for (var i = 0; i < tile.lavx.length; i++) {
-	ctx.fillStyle = "red";
+  ctx.fillStyle = "red";
   surface = true;
-	for (var x = 0; x < tile.lavx.length; x++) {
-	if (tile.lavx[i] == tile.lavx[x] && tile.lavy[i] - levelsize == tile.lavy[x]) {
-	surface = false;
-	}
+  for (var x = 0; x < tile.lavx.length; x++) {
+  if (tile.lavx[i] == tile.lavx[x] && tile.lavy[i] - levelsize == tile.lavy[x]) {
+  surface = false;
+  }
   else {
   }
-	}
+  }
   if (surface == true) {
     ctx.drawImage(lavaimg, tile.lavx[i], tile.lavy[i], levelsize, levelsize);
   }
@@ -493,10 +518,10 @@ level.prototype.draw = function() {
   }
   }
   for (var i = 0; i < tile.golx.length; i++) {
-	if(p1.gaf > 11) {
+  if(p1.gaf > 11) {
     p1.gaf = 0;
   }
-	ctx.drawImage(goldimg, 20 * p1.fgaf, 0, 20, 20, tile.golx[i], tile.goly[i], levelsize, levelsize);
+  ctx.drawImage(goldimg, 20 * p1.fgaf, 0, 20, 20, tile.golx[i], tile.goly[i], levelsize, levelsize);
   }
   if(p1.eaf > 5) {
     p1.eaf = 5;
@@ -550,3 +575,9 @@ setInterval(function() {
     time++;
   }
 }, 100);
+setInterval(function() {
+localStorage.setItem("time", pb.time);
+localStorage.setItem("gold", pb.gold);
+localStorage.setItem("tgold", pb.tgold);
+console.log("Saved");
+}, 1000);
