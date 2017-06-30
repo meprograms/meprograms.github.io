@@ -351,7 +351,7 @@ character.prototype.update = function() {
       if (this.gold > pb.gold) {
         pb.gold = this.gold;
       }
-      if (time / 10 < pb.time && time !== 0) {
+      if (time / 10 < pb.time || pb.time == 0) {
         pb.time = time / 10;
       }
     }
