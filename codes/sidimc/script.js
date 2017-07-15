@@ -8,16 +8,19 @@ var resetb = document.getElementById("reset");
 var resume = document.getElementById("resume");
 var ctx = canvas.getContext("2d");
 var keyPressed = {};
+var ground = new Image();
 var goldimg = new Image();
 var lavaimg = new Image();
 var underlavaimg = new Image();
-var groundimg = new Image();
 var endimg = new Image();
 goldimg.src = "gold.png";
 lavaimg.src = "lava.png";
 underlavaimg.src = "underlava.png";
-groundimg.src = "ground.png";
 endimg.src = "glitterchamber.png";
+var gfframe = {
+  x: 0,
+  y: 0
+}
 document.addEventListener('keydown', function(e) {
   keyPressed[e.keyCode] = true;
 }, false);
@@ -46,16 +49,28 @@ var pb = {
   gold: 0,
   tgold: 0,
 };
-if (localStorage.getItem("time") && localStorage.getItem("gold") && localStorage.getItem("tgold")) {
+var items = {
+  gf: false
+}
+function setupStorage(value, out) {
+  if(!localStorage.getItem(value)) {
+    localStorage.setItem(value, out);
+  }
+}
+  setupStorage("time", 0);
+  setupStorage("gold", 0);
+  setupStorage("tgold", 0);
+  setupStorage("items", JSON.stringify(items));
   pb.time = localStorage.getItem("time");
   pb.gold = localStorage.getItem("gold");
   pb.tgold = localStorage.getItem("tgold");
-}
-else {
-  localStorage.setItem("time", 0);
-  localStorage.setItem("gold", 0);
-  localStorage.setItem("tgold", 0);
-}
+  items = JSON.parse(localStorage.getItem("items") || null) || {};
+  if (items.gf == true) {
+    ground.src = "glitterfloor.png";
+  }
+  else {
+    ground.src = "ground.png";
+  }
 var levels = [];
 var layout = [
   [
@@ -256,11 +271,14 @@ var character = function(x, y) {
   this.onground = false;
   this.gaf = 0;
   this.eaf = 0;
+  this.gfaf = 0;
   this.fgaf = 0;
   this.feaf = 0;
+  this.fgfaf = 0;
   this.dir = 0;
   this.addgold = true;
   this.menu = false;
+  this.change = true;
 };
 var endstate = 0;
 butt.onclick = function restart() {
@@ -453,7 +471,13 @@ character.prototype.update = function() {
     }
   }
   if (keyPressed[27]) {
-    this.menu = true;
+    if (this.change === true) {
+    this.change = false;
+    this.menu = !this.menu;
+    }
+  }
+  else {
+    this.change = true;
   }
 };
 //"             "marker
@@ -501,8 +525,9 @@ level.prototype.load = function() {
 level.prototype.draw = function() {
   p1.gaf += 0.2;
   p1.eaf += 0.2;
+  p1.gfaf += 0.5;
   for (var i = 0; i < tile.boxx.length; i++) {
-    ctx.drawImage(groundimg, tile.boxx[i], tile.boxy[i], levelsize, levelsize);
+    ctx.drawImage(ground, 20 * p1.fgfaf, 0, 20, 20, tile.boxx[i], tile.boxy[i], levelsize, levelsize);
   }
   for (var i = 0; i < tile.lavx.length; i++) {
   ctx.fillStyle = "red";
@@ -530,8 +555,12 @@ level.prototype.draw = function() {
   if(p1.eaf > 5) {
     p1.eaf = 5;
   }
+   if(p1.gfaf > 64) {
+    p1.gfaf = 0;
+  }
     p1.fgaf = Math.floor(p1.gaf);
     p1.feaf = Math.floor(p1.eaf);
+    p1.fgfaf = Math.floor(p1.gfaf);
   ctx.drawImage(endimg, 20 * p1.feaf, endstate * 40, 20, 40, tile.endx[0], tile.endy[0], levelsize, levelsize * 2);
 }
 resume.onclick = function() {
@@ -586,5 +615,6 @@ setInterval(function() {
 localStorage.setItem("time", pb.time);
 localStorage.setItem("gold", pb.gold);
 localStorage.setItem("tgold", pb.tgold);
+localStorage.setItem("items", JSON.stringify(items));
 console.log("Saved");
 }, 1000);
