@@ -17,10 +17,11 @@ goldimg.src = "gold.png";
 lavaimg.src = "lava.png";
 underlavaimg.src = "underlava.png";
 endimg.src = "glitterchamber.png";
-var gfframe = {
-  x: 0,
-  y: 0
-}
+var ff = 0;
+var ifi = {
+  normal: 0,
+  gf: 64
+};
 document.addEventListener('keydown', function(e) {
   keyPressed[e.keyCode] = true;
 }, false);
@@ -65,12 +66,18 @@ function setupStorage(value, out) {
   pb.gold = localStorage.getItem("gold");
   pb.tgold = localStorage.getItem("tgold");
   items = JSON.parse(localStorage.getItem("items") || null) || {};
-  if (items.gf == true) {
+  ground.src = "ground.png";
+    if (items.gf == true) {
     ground.src = "glitterfloor.png";
+    ff = ifi.gf;
   }
-  else {
-    ground.src = "ground.png";
-  }
+  // if (items.gf == true) {
+  //   ground.src = "glitterfloor.png";
+  //   ff = ifi.gf;
+  // }
+  // else {
+  //   ground.src = "ground.png";
+  // }
 var levels = [];
 var layout = [
   [
@@ -526,6 +533,15 @@ level.prototype.draw = function() {
   p1.gaf += 0.2;
   p1.eaf += 0.2;
   p1.gfaf += 0.5;
+  if(p1.gaf > 11) {
+    p1.gaf = 0;
+  }
+  if(p1.eaf > 5) {
+    p1.eaf = 5;
+  }
+   if(p1.gfaf > ff) {
+    p1.gfaf = 0;
+  }
   for (var i = 0; i < tile.boxx.length; i++) {
     ctx.drawImage(ground, 20 * p1.fgfaf, 0, 20, 20, tile.boxx[i], tile.boxy[i], levelsize, levelsize);
   }
@@ -547,16 +563,7 @@ level.prototype.draw = function() {
   }
   }
   for (var i = 0; i < tile.golx.length; i++) {
-  if(p1.gaf > 11) {
-    p1.gaf = 0;
-  }
   ctx.drawImage(goldimg, 20 * p1.fgaf, 0, 20, 20, tile.golx[i], tile.goly[i], levelsize, levelsize);
-  }
-  if(p1.eaf > 5) {
-    p1.eaf = 5;
-  }
-   if(p1.gfaf > 64) {
-    p1.gfaf = 0;
   }
     p1.fgaf = Math.floor(p1.gaf);
     p1.feaf = Math.floor(p1.eaf);
