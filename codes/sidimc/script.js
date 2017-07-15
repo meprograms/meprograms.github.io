@@ -244,6 +244,20 @@ if (beta == true) {
   secound from bottum line is half cut of
   s- spawn +- gold x- lava e- end
   */
+  function buyitem(item, price) {
+    if(pb.tgold < price) {
+      alert("You Dont Have Enough For This");
+    }
+    else if(item) {
+      alert("You Already Have That");
+    }
+    else {
+      pb.tgold -= price;
+      alert("Have fun");
+      return true;
+    }
+    return false;
+  }
 var holder = [];
 var tile = {
   boxx: [],

@@ -18,6 +18,16 @@ button {
   margin-bottom: 5px;
 }
 
+img {
+  width: 100px;
+  height: 100px;
+}
+
+#cont {
+  display: inline-block;
+  color: gold;
+}
+
 #total {
   text-align: right;
   color: gold;
