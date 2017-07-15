@@ -6,6 +6,7 @@ var win = document.getElementById("win");
 var wint = document.getElementById("wint");
 var resetb = document.getElementById("reset");
 var resume = document.getElementById("resume");
+var total = document.getElementById("total");
 var ctx = canvas.getContext("2d");
 var keyPressed = {};
 var ground = new Image();
@@ -67,7 +68,7 @@ function setupStorage(value, out) {
   pb.tgold = localStorage.getItem("tgold");
   items = JSON.parse(localStorage.getItem("items") || null) || {};
   ground.src = "ground.png";
-    if (items.gf == true) {
+  if (items.gf == true) {
     ground.src = "glitterfloor.png";
     ff = ifi.gf;
   }
@@ -320,6 +321,7 @@ character.prototype.draw = function() {
 };
 character.prototype.update = function() {
   if(this.menu) {
+    total.innerHTML = pb.tgold + " Gold";
     menu.style.display = "block";
   }
   else {
