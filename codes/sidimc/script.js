@@ -19,10 +19,14 @@ lavaimg.src = "lava.png";
 underlavaimg.src = "underlava.png";
 endimg.src = "glitterchamber.png";
 var ff = 0;
-var ifi = [0, 64];
+var fs = 0;
+var ifi = [0, 64, 7];
+var fsa = [0, 0.5, 0.3];
+var iidsrc = ["ground.png", "glitterfloor.png", "rf.png"];
 var items = {
   nf: true,
-  gf: false
+  gf: false,
+  rf: false
 }
 var sel = 0;
 var sx = 0;
@@ -53,7 +57,6 @@ var pb = {
   gold: 0,
   tgold: 0,
 };
-var iidsrc = ["ground.png", "glitterfloor.png"];
 function setupStorage(value, out) {
   if(!localStorage.getItem(value)) {
     localStorage.setItem(value, out);
@@ -343,6 +346,7 @@ character.prototype.draw = function() {
 character.prototype.update = function() {
   ground.src = iidsrc[sel];
   ff = ifi[sel];
+  fs = fsa[sel];
   if(this.menu) {
     total.innerHTML = pb.tgold + " Gold";
     menu.style.display = "block";
@@ -557,7 +561,7 @@ level.prototype.load = function() {
 level.prototype.draw = function() {
   p1.gaf += 0.2;
   p1.eaf += 0.2;
-  p1.gfaf += 0.5;
+  p1.gfaf += fs;
   if(p1.gaf > 11) {
     p1.gaf = 0;
   }
