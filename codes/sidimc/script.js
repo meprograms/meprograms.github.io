@@ -241,6 +241,7 @@ if (beta == true) {
   secound from bottum line is half cut of
   s- spawn +- gold x- lava e- end
   */
+  selitem(sel);
   function selitem(iid) {
     sel = iid;
       for (var i = 0; i < ifi.length; i ++) {
