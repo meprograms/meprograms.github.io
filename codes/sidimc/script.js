@@ -19,18 +19,20 @@ lavaimg.src = "lava.png";
 underlavaimg.src = "underlava.png";
 endimg.src = "glitterchamber.png";
 var ff = 0;
-var ifi = {
-  normal: 0,
-  gf: 64
-};
+var ifi = [0, 64];
+var items = {
+  nf: true,
+  gf: false
+}
+var sel = 0;
+var sx = 0;
+var sy = 0;
 document.addEventListener('keydown', function(e) {
   keyPressed[e.keyCode] = true;
 }, false);
 document.addEventListener('keyup', function(e) {
   keyPressed[e.keyCode] = false;
 }, false);
-var sx = 0;
-var sy = 0;
 var level = function(layout) {
   this.level = layout;
   };
@@ -51,9 +53,7 @@ var pb = {
   gold: 0,
   tgold: 0,
 };
-var items = {
-  gf: false
-}
+var iidsrc = ["ground.png", "glitterfloor.png"];
 function setupStorage(value, out) {
   if(!localStorage.getItem(value)) {
     localStorage.setItem(value, out);
@@ -62,16 +62,13 @@ function setupStorage(value, out) {
   setupStorage("time", 0);
   setupStorage("gold", 0);
   setupStorage("tgold", 0);
+  setupStorage("sel", 0);
   setupStorage("items", JSON.stringify(items));
   pb.time = localStorage.getItem("time");
   pb.gold = localStorage.getItem("gold");
   pb.tgold = localStorage.getItem("tgold");
+  sel = localStorage.getItem("sel");
   items = JSON.parse(localStorage.getItem("items") || null) || {};
-  ground.src = "ground.png";
-  if (items.gf == true) {
-    ground.src = "glitterfloor.png";
-    ff = ifi.gf;
-  }
   // if (items.gf == true) {
   //   ground.src = "glitterfloor.png";
   //   ff = ifi.gf;
@@ -244,16 +241,25 @@ if (beta == true) {
   secound from bottum line is half cut of
   s- spawn +- gold x- lava e- end
   */
-  function buyitem(item, price) {
-    if(pb.tgold < price) {
-      alert("You Dont Have Enough For This");
+  function selitem(iid) {
+    sel = iid;
+      for (var i = 0; i < ifi.length; i ++) {
+        document.getElementById(i.toString()).className = "unsel";
+      }
+      document.getElementById(sel.toString()).className = "sel";
+  }
+  function buyitem(item, iid, price) {
+    if(item) {
+      selitem(iid);
+      return true;
     }
-    else if(item) {
-      alert("You Already Have That");
+    else if(pb.tgold < price) {
+      alert("You Dont Have Enough For This");
     }
     else {
       pb.tgold -= price;
       alert("Have fun");
+      selitem(iid);
       return true;
     }
     return false;
@@ -334,6 +340,8 @@ character.prototype.draw = function() {
   ctx.fillText(time / 10 + " | " + pb.time, levelsize * levelw - 100, 20);
 };
 character.prototype.update = function() {
+  ground.src = iidsrc[sel];
+  ff = ifi[sel];
   if(this.menu) {
     total.innerHTML = pb.tgold + " Gold";
     menu.style.display = "block";
@@ -639,5 +647,6 @@ localStorage.setItem("time", pb.time);
 localStorage.setItem("gold", pb.gold);
 localStorage.setItem("tgold", pb.tgold);
 localStorage.setItem("items", JSON.stringify(items));
+localStorage.setItem("sel", sel);
 console.log("Saved");
 }, 1000);

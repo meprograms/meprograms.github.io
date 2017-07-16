@@ -79,6 +79,14 @@ img {
   opacity: 0.80;
 }
 
+.sel {
+  border: 3px solid gold;
+}
+
+.insel {
+  border: none;
+}
+
 * {
   margin: 0;
 }
