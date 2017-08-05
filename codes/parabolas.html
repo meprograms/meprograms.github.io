@@ -1,43 +1,22 @@
-<!DOCTYPE html>
-<html>
-  <link rel="stylesheet" type="text/css" href="../styles/fibstyle.css">
-<div class="info">
-      <a class="bon" id="home" href="../index.html" >Home</a>
-      <a class="bon" id="about" href="../about.html" >About</a>
-      <a class="bon" id="cont" href="../contact.html">Contact</a>
-      <a class="bon" id="git" href="https://github.com/meprograms/meprograms.github.io" >See code</a>
-    </div>
-      <script type="text/javascript" src="../jquery.js"></script>
-  <script type="text/javascript" src="../scripts/homes.js" ></script> 
-  <style type="text/css">
-    body {
-  background-image: url(https://raw.githubusercontent.com/meprograms/meprograms.github.io/master/res/bg.PNG);
-  background-size: cover;
+<link rel="stylesheet" type="text/css" href="../styles/fibstyle.css">
+  <canvas id="screen" width="1000" height="600"></canvas>
+  <script>
+    var canvas = document.getElementById("screen");
+    var ctx = canvas.getContext("2d");
+    var il = Number(prompt("how flat should the parabola be?"));
+    var x = 0;
+    var y = 0;
+    var py = 0;
+    var a = 0.1;
+    function run() {
+        ctx.fillStyle = "green";
+        ctx.fillRect(500 + x, 500 + y, 1, 1);
+        ctx.fillRect(500 - x, 500 + y, 1, 1);
+        py = y;
+        x += a;
+        y = Math.pow(x, 2);
+        y = y - y * 2;
+        y /= il;
     }
-  </style>
-  <head>
-    <canvas id="screen" width="1000" height="600"></canvas>
-    <script>
-      var canvas = document.getElementById("screen");
-      var ctx = canvas.getContext("2d");
-      var il = Number(prompt("how flat should the parabola be?"));
-      var x = 0;
-      var y = 0;
-      var py = 0;
-      var a = 0.1;
-      function run() {
-          ctx.fillStyle = "#ff8c00";
-          ctx.fillRect(500 + x, 500 + y, 1, 1);
-          ctx.fillRect(500 - x, 500 + y, 1, 1);
-          py = y;
-          x += a;
-          y = Math.pow(x, 2);
-          y = y - y * 2;
-          y /= il;
-      }
-      var i = setInterval(run, 0);
+    var i = setInterval(run, 0);
     </script>
-  </head>
-  <body>
-  </body>
-<html>

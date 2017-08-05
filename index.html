@@ -1,47 +1,57 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>CalcGalore</title>
-    <link rel="stylesheet" type="text/css" href="styles/style.css">
-    <script type="text/javascript" src="jquery.js"></script>
-    <script type="text/javascript" src="scripts/script.js"></script>
-    <script type="text/javascript" src="scripts/homes.js" ></script>
-  </head>
-  <body>
-  	<div class="info">
-  		<a class="bon" id="home" href="index.html" >Home</a>
-  		<a class="bon" id="about" href="about.html" >About</a>
-  		<a class="bon" id="cont" href="contact.html">Contact</a>
-  		<a class="bon" id="git" href="https://github.com/meprograms/meprograms.github.io" >See code</a>
-    </div>
-    <h1 class="header">CalcGalore</h1>
-    <h2 class="subheader">Check Out these Programs</h2>
-    <ul class="listp">
-    	<li id="calc" class="list"><a class="on" id="calcl" href="codes/calculator.html">Calculator with And, or and Xor gates!</a></li>
-    	<li id="ecal" class="list"><a class="on" id="ecall" href="codes/ecalc.html">Calculate e!</a></li>
-    	<li id="fact" class="list"><a class="on" id="factl" href="codes/factorizer.html">Factorize numbers!</a></li>
-    	<li id="fibn" class="list"><a class="on" id="fibnl" href="codes/fibnachi.html">Generate Fibonacci Numbers!</a></li>
-    	<li id="math" class="list"><a class="on" id="mathl" href="codes/mathdisplay.html">See what randomness looks like!</a></li>
-    	<li id="mmmr" class="list"><a class="on" id="mmmrl" href="codes/MMMRcalc.html">Calculate Mean Median and Mode!</a></li>
-    	<li id="numb" class="list"><a class="on" id="numbl" href="codes/numbers.html">Calculate Big roots!</a></li>
-    	<li id="para" class="list"><a class="on" id="paral" href="codes/parabolas.html">Draw a Nice Parabola!</a></li>
-    	<li id="pass" class="list"><a class="on" id="passl" href="codes/password.html">See how strong you password is!</a></li>
-    	<li id="perc" class="list"><a class="on" id="percl" href="codes/Percent.html">Percent decimal and fraction calculator!</a></li>
-    	<li id="pica" class="list"><a class="on" id="pical" href="codes/picalc.html">Calculate Pi!</a></li>
-    	<li id="prim" class="list"><a class="on" id="priml" href="codes/primecalc.html">Calculate Prime numbers Up to 10000!</a></li>
-    	<li id="primef" class="list"><a class="on" id="primefl" href="codes/primefacor.html">Calculate what primes make up a number!</a></li>
-    	<li id="prob" class="list"><a class="on" id="probl" href="codes/probability.html">Physicl vs theoreticle probability!</a></li>
-    	<li id="rati" class="list"><a class="on" id="ratil" href="codes/ratiosimp.html">Ratio simplifiry</a></li>
-    	<li id="shpe" class="list"><a class="on" id="shpel" href="codes/shperecalc.html">Sphere calculater!</a></li>
-    	<li id="stem" class="list"><a class="on" id="steml" href="codes/stemleaf.html">Stem and leaf graph!</a></li>
-    	<li id="trya" class="list"><a class="on" id="tryal" href="codes/tryangles.html">Play with tryangles!</a></li>
-    	<li id="hot" class="list"><a class="on" id="hotl" href="codes/hot.html">Hot sauce picker!</a></li>
-      <li id="sort" class="list"><a class="on" id="sortl" href="codes/sorting.html">Bubble Sort!</a></li>
-      <li id="frac" class="list"><a class="on" id="fracl" href="codes/fractionadder.html">Fraction Adder!</a></li>
-      <li id="scri" class="list"><a class="on" id="scril" href="codes/scripttimer.html">Script Timer!</a></li>
-      <li id="cord" class="list"><a class="on" id="cordl" href="codes/cord.html">Draw stuffs with cords</a></li>
-      <li id="phic" class="list"><a class="on" id="phicl" href="codes/goldenrect.html">Calculate Phi/Golden ratio</a></li>
-      <li id="sidi" class="list"><a class="on" id="sidil" href="codes/sidimc/sidimc.html">Something I Did In Math Class</a></li>
-    </ul>
-  </body>
-<html>
+      <link rel="stylesheet" type="text/css" href="styles/style.css">
+      <div class="header">
+  <h1 class="maintext">Calcgalore.tk</h1>
+  <h3 class="subtext">The best place for your calculating needs</h3>
+</div>
+<nav>
+  <ul>
+    <li>Irrational Number
+      <ul class="drop-menu 1">
+        <li><a href="codes/picalc.html">Pi</a></li>
+        <li><a href="codes/goldenrect.html">Phi</a></li>
+        <li><a href="codes/ecalc.html">e</a></li>
+      </ul>
+    </li>
+    <li>Visual Output
+      <ul class="drop-menu menu-#{i}">
+        <li><a href="codes/mathdisplay.html">Random</a></li>
+        <li><a href="codes/parabolas.html">Parabola</a></li>
+        <li><a href="codes/sorting.html">Bubble Sort</a></li>
+        <li><a href="codes/cord.html">Cord Graph</a></li>
+      </ul>
+    </li>
+    <li>Infinite Sequences
+      <ul class="drop-menu menu-#{i}">
+        <li><a href="codes/fibnachi.html">Fibinachi</a></li>
+        <li><a href="codes/numbers.html">Big Roots</a></li>
+        <li><a href="codes/primecalc.html">Primes</a></li>
+      </ul>
+    </li>
+    <li>Input to Output
+      <ul class="drop-menu menu-#{i}">
+        <li><a href="codes/primefacor.html">Factorization</a></li>
+        <li><a href="codes/Percent.html">Percent To Decimal</a></li>
+        <li><a href="codes/shperecalc.html">Sphere Volume</a></li>
+        <li><a href="codes/tryangles.html">a<sup>2</sup> + b<sup>2</sup> = c<sup>2</sup></a></li>
+        <li><a href="codes/fractionadder.html">Add Fractions</a></li>
+      </ul>
+    </li>
+    <li>Usefull
+      <ul class="drop-menu menu-#{i}">
+        <li><a href="codes/MMMRcalc.html">Avarage</a></li>
+        <li><a href="codes/password.html">Password Strength</a></li>
+        <li><a href="codes/ratiosimp.html">Simplest Ratio</a></li>
+        <li><a href="codes/stemleaf.html">Stem And Leaf</a></li>
+        <li><a href="codes/scripttimer.html">Script Timer</a></li>
+      </ul>
+    </li>
+    <li>Miscellaneous
+      <ul class="drop-menu menu-#{i}">
+        <li><a href="codes/hot.html">Hot Sauce</a></li>
+        <li><a href="codes/calculator.html">Binary Adder</a></li>
+        <li><a href="codes/probability.html">Probability</a></li>
+        <li><a href="codes/sidimc/sidimc.html">SIDIMC</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>

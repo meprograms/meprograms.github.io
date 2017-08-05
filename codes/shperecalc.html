@@ -1,34 +1,8 @@
-<html>
-<body>
-    <link rel="stylesheet" type="text/css" href="../styles/fibstyle.css">
-<div class="info">
-      <a class="bon" id="home" href="../index.html" >Home</a>
-      <a class="bon" id="about" href="../about.html" >About</a>
-      <a class="bon" id="cont" href="../contact.html">Contact</a>
-      <a class="bon" id="git" href="https://github.com/meprograms/meprograms.github.io" >See code</a>
-    </div>
-      <script type="text/javascript" src="../jquery.js"></script>
-  <script type="text/javascript" src="../scripts/homes.js" ></script>
-  <style type="text/css">
-    body {
-  background-image: url(https://raw.githubusercontent.com/meprograms/meprograms.github.io/master/res/bg.PNG);
-  background-size: cover;
-  background-repeat: no-repeat;
-    }
-    p {
-      text-align: center;
-      font-family: sans-serif;
-      font-size: 20px;
-      padding: 20px 40px 0px 40px;
-      color: #ff8c00;
-    }
-  </style>
-</body>
+<link rel="stylesheet" type="text/css" href="../styles/fibstyle.css">
 <p id = "p"></p>
 <script>
 var p = document.getElementById("p");
 var pi = 3.141592653589793238462643383279502884197169399375105820974944592307816406286;
-var choice = prompt("surface area or volume?");
 var sphere = {
 vol: 0,
 dia: 0,
@@ -39,11 +13,6 @@ sphere.dia = Number(prompt("enter the diameter of the sphere"));
 sphere.rad = sphere.dia / 2;
 sphere.vol = 4/3*pi*Math.pow(sphere.rad, 3);
 sphere.sa = 4*pi*Math.pow(sphere.rad, 2);
-if (choice == "surface") {
-p.innerHTML = sphere.sa;
-}
-else if (choice == "volume") {
-p.innerHTML = sphere.vol;
-}
+p.innerHTML = "Surface area " + sphere.sa + "<br>";
+p.innerHTML += "Volume " + sphere.vol + "<br>";
 </script>
-</html>

@@ -1,106 +1,125 @@
-.header {
-	text-align: center;
-	font-size: 60px;
-	padding: 20px 0 0 0;
-	font-family: sans-serif;
-	color: #e88d1e;
-}
-
-.subheader {
-	text-align: center;
-	font-size: 30px;
-	padding: 10px;
-	font-family: sans-serif;
-	color: #ff8c00;
-}
-
-li {
-	text-align: center;
-	font-size: 15px;
-	padding: 5px 0px;
-	font-family: sans-serif;
+* {
+  margin: 0;
+  padding: 0;
 }
 
 a {
-	text-decoration: none;
+  text-decoration: none;
+  color: black;
 }
 
-p {
-	text-align: center;
-	font-size: 15px;
-	padding: 10px;
-	margin: 5px;
-	font-family: sans-serif;
-	color: #ff8c00;
+.header {
+  background-color: green;
+  text-align: left;
+  padding: 20px;
 }
 
-body {
-	background-image: url("https://raw.githubusercontent.com/meprograms/meprograms.github.io/master/res/bg.PNG");
-	background-repeat: no-repeat;
-	background-size: cover;
+.maintext {
+  font-size: 40px;
 }
 
-.on {
-	color: #ff8c00;
+.subtext {
+  margin-left: 20px;
 }
 
-.off {
-	color: #844800;
+nav {
+  padding: 50px;
+  text-align: center;
+}
+nav > ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  background: green;
+  border-radius: 5px;
+}
+nav > ul > li {
+  padding: 10px;
+  float: left;
+  height: 65px;
+  line-height: 65px;
+  position: relative;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+  background: green;
+  -webkit-transition: background 0.3s linear 0s, color 0.3s linear 0s;
+  transition: background 0.3s linear 0s, color 0.3s linear 0s;
+}
+nav > ul > li:hover {
+  background: #d5d5d5;
+  color: green;
 }
 
-.bon {
-	color: #ff8c00;
-	border: 2px solid #ff8c00;
+ul.drop-menu {
+  position: absolute;
+  top: 100%;
+  left: 0%;
+  width: 100%;
+  padding: 0;
+}
+ul.drop-menu li {
+  background: #666;
+  color: rgba(255, 255, 255, 0.7);
+  -webkit-transition: background 0.3s linear 0s;
+  transition: background 0.3s linear 0s;
+}
+ul.drop-menu li:hover {
+  background: #606060;
+}
+ul.drop-menu li:last-child {
+  border-radius: 0px 0px 5px 5px;
 }
 
-.boff {
-	color: #844800;
-	border: 2px solid #844800;
+ul.drop-menu li {
+  display: none;
 }
 
-#about {
-	text-align: center;
-	font-size: 20px;
-	font-family: sans-serif;
-	margin: 5px;
-	padding: 0px 3px;
-	display: inline-block;
+li:hover > ul.drop-menu li {
+  display: block;
+  -webkit-animation: spinin 0.3s ease-in-out 0s;
+          animation: spinin 0.3s ease-in-out 0s;
 }
 
-#cont {
-	text-align: center;
-	font-size: 20px;
-	font-family: sans-serif;
-	margin: 5px;
-	padding: 0px 3px;
-	display: inline-block;
+@-webkit-keyframes spinin {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-20px) scale(0.2);
+            transform: translateY(-20px) scale(0.2);
+  }
+  40% {
+    opacity: 1;
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: translateY(0px) scale(1);
+            transform: translateY(0px) scale(1);
+  }
 }
 
-#git {
-	text-align: center;
-	font-size: 20px;
-	font-family: sans-serif;
-	margin: 5px;
-	padding: 0px 3px;
-	display: inline-block;
-	text-decoration: none;
+@keyframes spinin {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-20px) scale(0.2);
+            transform: translateY(-20px) scale(0.2);
+  }
+  40% {
+    opacity: 1;
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: translateY(0px) scale(1);
+            transform: translateY(0px) scale(1);
+  }
 }
 
-#home {
-	text-align: center;
-	font-size: 20px;
-	font-family: sans-serif;
-	margin: 5px 5px 5px 10px;
-	padding: 0px 3px;
-	display: inline-block;
-	text-decoration: none;
-}
-
-.info {
-
-}
-
-* {
-	padding: 0;
-	margin: 0;
+li a {
+  margin: 0px;
+  width: 100%; 
+  height: 100%; 
+  display: block;
 }
