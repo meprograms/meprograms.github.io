@@ -1,0 +1,59 @@
+<link rel="stylesheet" type="text/css" href="../styles/fibstyle.css">
+<p id="p"></p>
+<canvas id="canvas" width="1920" height="1080"></canvas>
+<script type="text/javascript">
+	var ctx = document.getElementById("canvas").getContext("2d");
+	var pimg = document.getElementById("p");
+	var x = prompt("How wide is your parabola") / 2;
+	var y = prompt("How deep is your parabola");
+	var scale = Math.round(600 / x);
+	var p = Math.pow((x), 2) / (4 * y);
+	var a = Math.pow(x, 2) / (y * scale);
+	var b = y * (scale);
+	var c = x * scale;
+	var last = [];
+	var lastb = [];
+	ctx.fillStyle = "green";
+	ctx.strokeStyle = "green";
+	for (var i = 0; i < x; i ++) {
+		ctx.fillRect(c - i * scale,b - Math.pow(i, 2) / a, 1, 1);
+		ctx.beginPath();
+		ctx.moveTo(last[0],last[1]);
+		ctx.lineTo(c - i * scale, b - Math.pow(i, 2) / a);
+		ctx.stroke();
+		last[0] = c - i * scale;
+		last[1] = b - Math.pow(i, 2) / a;
+	}
+	for (var i = 0; i < x; i ++) {
+		ctx.fillRect(c + i * scale,b - Math.pow(i, 2) / a, 1, 1);
+		ctx.beginPath();
+		ctx.moveTo(lastb[0],lastb[1]);
+		ctx.lineTo(c + i * scale, b - Math.pow(i, 2) / a);
+		ctx.stroke();
+		lastb[0] = c + i * scale;
+		lastb[1] = b - Math.pow(i, 2) / a;
+	}
+	ctx.beginPath();
+	ctx.moveTo(c, (Math.pow(x, 2) / a) - p * (scale / 10));
+	ctx.lineTo(c, Math.pow(x, 2) / a);
+	ctx.stroke(); 
+	ctx.fillRect(c - 2, (Math.pow(x, 2) / a) - p * (scale / 10) - 2, 4 , 4)
+	if (x * 2 == 1) {
+		pimg.innerHTML += "The parabola is 1 Unit wide";
+	}
+	else {
+		pimg.innerHTML += "The parabola is " + x * 2 + " Units wide";
+	}
+	if (y == 1) {
+		pimg.innerHTML += " And 1 Unit deep" + "<br>";
+	}
+	else {
+		pimg.innerHTML += " And " + y + " Units deep" + "<br>";
+	}
+	if (p == 1) {
+		pimg.innerHTML += "The focus of the parabola is 1 Unit from the vertex";
+	}
+	else {
+		pimg.innerHTML += "The focus of the parabola is " + p + " Units from the vertex";
+	}
+</script>
