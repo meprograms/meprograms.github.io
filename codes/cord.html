@@ -15,9 +15,8 @@ var canvas = document.getElementById("canvas")
 var ctx = canvas.getContext("2d");
 var textx = document.getElementById("textx");
 var texty = document.getElementById("texty");
-	var texts = document.getElementById("texts");
+var texts = document.getElementById("texts");
 var button = document.getElementById("button");
-var button2 = document.getElementById("button2");
 var button3 = document.getElementById("button3");
 var out1 = document.getElementById("rect1");
 var out2 = document.getElementById("rect2");
@@ -29,6 +28,19 @@ var ryarr = [];
 var m = 1;
 var mx = 0;
 var my = 0;
+canvas.onclick = function() {
+  xarr.push((Math.round((mx - 200) / 10) - Math.round((mx - 200) / 10) * 2) * 10 - (Math.round((mx - 200) / 10) - Math.round((mx - 200) / 10) * 2) * 10 * 2);
+  yarr.push((Math.round((my - 200) / 10) - Math.round((my - 200) / 10) * 2) * 10 - (Math.round((my - 200) / 10) - Math.round((my - 200) / 10) * 2) * 10 * 2);
+  for (var i = 0; i < xarr.length; i++) {
+    ctx.fillRect(200 + xarr[i], 200 + yarr[i], 2, 2);
+  }
+  for (var i = 0; i < xarr.length - 1; i++) {
+    ctx.beginPath();
+    ctx.moveTo(200 + xarr[i], 200 + yarr[i]);
+    ctx.lineTo(200 + xarr[i + 1], 200 + yarr[i + 1]);
+    ctx.stroke();
+  }
+}
 button3.onclick = function() {
   m = Number(texts.value);
   for (var i = 0; i < xarr.length; i++) {
