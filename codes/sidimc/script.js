@@ -247,6 +247,13 @@ if (beta == true) {
   secound from bottum line is half cut of
   s- spawn +- gold x- lava e- end
   */
+  function setpixelated(){
+    ctx.imageSmoothingEnabled = false;       /* standard */
+    ctx.mozImageSmoothingEnabled = false;    /* Firefox */
+    ctx.oImageSmoothingEnabled = false;      /* Opera */
+    ctx.webkitImageSmoothingEnabled = false; /* Safari */
+    ctx.msImageSmoothingEnabled = false;     /* IE */
+}
   selitem(sel);
   function selitem(iid) {
     sel = iid;
@@ -314,6 +321,7 @@ var character = function(x, y) {
   this.addgold = true;
   this.menu = false;
   this.change = true;
+  this.goldrush = true;
 };
 var endstate = 0;
 butt.onclick = function restart() {
@@ -373,6 +381,9 @@ character.prototype.update = function() {
     this.x + this.w > tile.endx[0] &&
     this.y < tile.endy[0] + levelsize &&
     this.h + this.y > tile.endy[0]) {
+    if(tile.golx.length != 0) {
+      this.goldrush = false;
+    }
     runtimer = false;
     endstate = 0;
   p1.eaf = 0;
@@ -404,6 +415,8 @@ character.prototype.update = function() {
     this.xvol *= 0.95;
   }
   if (done == true) {
+    if(this.goldrush == true) {
+    }
     if (done == true) {
       if (this.gold > pb.gold) {
         pb.gold = this.gold;
@@ -447,8 +460,8 @@ character.prototype.update = function() {
   for (var i = 0; i < tile.lavx.length; i++) {
     if (this.x < tile.lavx[i] + levelsize &&
       this.x + this.w > tile.lavx[i] &&
-      this.y < tile.lavy[i] + levelsize &&
-      this.h + this.y > tile.lavy[i] && this.health > 0) {
+      this.y < tile.lavy[i] - 3 + levelsize &&
+      this.h + this.y > tile.lavy[i] + 3 && this.health > 0) {
       this.health -= 10;
     }
   }
@@ -522,6 +535,7 @@ character.prototype.update = function() {
 //"             "marker
 //_ floor x lava + gold coin s spawn
 level.prototype.load = function() {
+  setpixelated();
   p1.x = p1.ex;
   p1.y = p1.ey;
   p1.xvol = p1.exvol;
@@ -575,7 +589,7 @@ level.prototype.draw = function() {
     p1.gfaf = 0;
   }
   for (var i = 0; i < tile.boxx.length; i++) {
-    ctx.drawImage(ground, 20 * p1.fgfaf, 0, 20, 20, tile.boxx[i], tile.boxy[i], levelsize, levelsize);
+    ctx.drawImage(ground,20 * p1.fgfaf, 0, 20, 20, tile.boxx[i], tile.boxy[i], levelsize, levelsize);
   }
   for (var i = 0; i < tile.lavx.length; i++) {
   ctx.fillStyle = "red";
@@ -595,7 +609,7 @@ level.prototype.draw = function() {
   }
   }
   for (var i = 0; i < tile.golx.length; i++) {
-  ctx.drawImage(goldimg, 20 * p1.fgaf, 0, 20, 20, tile.golx[i], tile.goly[i], levelsize, levelsize);
+  ctx.drawImage(goldimg,20 * p1.fgaf, 0, 20, 20, tile.golx[i], tile.goly[i], levelsize, levelsize);
   }
     p1.fgaf = Math.floor(p1.gaf);
     p1.feaf = Math.floor(p1.eaf);
