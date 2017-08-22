@@ -20,9 +20,9 @@ underlavaimg.src = "underlava.png";
 endimg.src = "glitterchamber.png";
 var ff = 0;
 var fs = 0;
-var ifi = [0, 30, 0, 64, 7, 6, 6, 6];
-var fsa = [0, 0.2, 0, 0.5, 0.3, 0.25, 0.3, 0.3];
-var iidsrc = ["ground.png", "x.png", "yf.png", "glitterfloor.png", "rf.png", "cf.png", "rx.png", "rs.png"];
+var ifi = [0, 30, 0, 64, 7, 6, 6, 6, 0, 0, 0];
+var fsa = [0, 0.2, 0, 0.5, 0.3, 0.25, 0.3, 0.3, 0, 0, 0];
+var iidsrc = ["ground.png", "x.png", "yf.png", "glitterfloor.png", "rf.png", "cf.png", "rx.png", "rs.png", "igf.png", "scf.png", "vf.png"];
 var items = {
   nf: true,
   xf: false,
@@ -30,7 +30,10 @@ var items = {
   gf: false,
   rf: false,
   cf: false,
-  rx: false
+  rx: false,
+  igf: false,
+  scf: false,
+  vf: false
 }
 var sel = 0;
 var sx = 0;
