@@ -551,21 +551,15 @@ level.prototype.load = function() {
   for (var i = 0; i < this.level.length; i++) { //run code below for each level object
     for (var x = 0; x < this.level[i].length; x++) { //run code below for ever block in the string
       if (this.level[i].charAt(x) == "_") { //if its _ the draw a black box
-        ctx.fillStyle = "black";
-        ctx.fillRect(x * levelsize, i * levelsize, levelsize, levelsize);
         tile.boxx.push(x * levelsize);
         tile.boxy.push(i * levelsize);
       } else if (this.level[i].charAt(x) == "x") { //if its x the draw a red box
-        ctx.fillStyle = "red";
-        ctx.fillRect(x * levelsize, i * levelsize, levelsize, levelsize);
         tile.lavx.push(x * levelsize);
         tile.lavy.push(i * levelsize);
       } else if (this.level[i].charAt(x) == "+") { //if its + the draw a gold box
         tile.golx.push(x * levelsize);
         tile.goly.push(i * levelsize);
       } else if (this.level[i].charAt(x) == "e") { //if its e the draw a green box
-        ctx.fillStyle = "green";
-        ctx.fillRect(x * levelsize, i * levelsize, levelsize, levelsize * 2);
         tile.endx.push(x * levelsize);
         tile.endy.push(i * levelsize - levelsize);
       } else if (this.level[i].charAt(x) == "s") { //if its s get the player start pos
