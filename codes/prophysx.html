@@ -1,0 +1,55 @@
+<link rel="stylesheet" type="text/css" href="../styles/calcstyle.css">
+<canvas id="screen"></canvas>
+<script>
+var screen = document.getElementById("screen");
+var ctx = screen.getContext("2d");
+var mx = 0;
+var my = 0;
+var shot = false;
+var v = function() {
+	this.va = [10, 70];
+	this.vb = [];
+	this.vc = [];
+	this.x = this.va[0];
+	this.y = this.va[1];
+	this.xspeed = 0;
+	this.yspeed = 0;
+}
+v.prototype.update = function() {
+	ctx.fillRect(this.bulletx, this.bullety, 10, 10);
+	this.bulletx -= this.xspeed;
+	this.bullety -= this.yspeed;
+}
+v.prototype.math = function() {
+	this.bulletx = this.va[0]
+ 	this.bullety = this.va[1]
+  	this.xspeed = 0;
+  	this.yspeed = 0;
+  	this.vb[0] = mx;
+  	this.vb[1] = my;
+  	this.vc[0] = this.va[0] - this.vb[0];
+  	this.vc[1] = this.va[1] - this.vb[1];
+  	this.xspeed = this.vc[0] / Math.sqrt(Math.pow(this.vc[0], 2) + Math.pow(this.vc[1], 2)) * 2;
+  	this.yspeed = this.vc[1] / Math.sqrt(Math.pow(this.vc[0], 2) + Math.pow(this.vc[1], 2)) * 2;
+}
+var vector = [];
+function gunupdate() {
+	ctx.clearRect(0,0, 100, 100);
+	for (var z = 0; z < vector.length; z ++) {
+		vector[z].update();
+	}
+}
+screen.addEventListener('click', function(e) {
+	if (shot == false) {
+		vector.push(new v());
+		mx = e.pageX - this.offsetLeft;
+		my = e.pageY - this.offsetTop;
+		vector[vector.length - 1].math();
+		shot = true;
+		setTimeout(function() {
+			shot = false;
+		},400);
+	}
+}, false);
+var p = setInterval(gunupdate, 10);
+</script>

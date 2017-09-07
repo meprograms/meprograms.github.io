@@ -654,7 +654,55 @@ function draw() {
   ctx.clearRect(0, 0, 10000, 10000);
   levels[key].draw();
   p1.draw();
+  for (var z = 0; z < vector.length; z ++) {
+    vector[z].update();
+  }
 }
+var mx = 0;
+var my = 0;
+var shot = false;
+var v = function() {
+  this.va = [];
+  this.vb = [];
+  this.vc = [];
+  this.x = this.va[0];
+  this.y = this.va[1];
+  this.xspeed = 0;
+  this.yspeed = 0;
+}
+v.prototype.update = function() {
+  ctx.fillStyle = "#C0C0C0";
+  ctx.fillRect(this.bulletx, this.bullety, 10, 10);
+  this.bulletx -= this.xspeed;
+  this.bullety -= this.yspeed;
+}
+v.prototype.math = function() {
+    this.va[0] = p1.x + levelsize / 2;
+    this.va[1] = p1.y + levelsize / 1.25;
+    this.bulletx = this.va[0]
+    this.bullety = this.va[1]
+    this.xspeed = 0;
+    this.yspeed = 0;
+    this.vb[0] = mx;
+    this.vb[1] = my;
+    this.vc[0] = this.va[0] - this.vb[0];
+    this.vc[1] = this.va[1] - this.vb[1];
+    this.xspeed = this.vc[0] / Math.sqrt(Math.pow(this.vc[0], 2) + Math.pow(this.vc[1], 2)) * levelsize;
+    this.yspeed = this.vc[1] / Math.sqrt(Math.pow(this.vc[0], 2) + Math.pow(this.vc[1], 2)) * levelsize;
+}
+var vector = [];
+canvas.addEventListener('click', function(e) {
+  if (shot == false) {
+    vector.push(new v());
+    mx = e.pageX - this.offsetLeft;
+    my = e.pageY - this.offsetTop;
+    vector[vector.length - 1].math();
+    shot = true;
+    setTimeout(function() {
+      shot = false;
+    },400);
+  }
+}, false);
 setInterval(draw, 17);
 setInterval(update, 17);
 setInterval(function() {
