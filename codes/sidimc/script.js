@@ -14,10 +14,12 @@ var goldimg = new Image();
 var lavaimg = new Image();
 var underlavaimg = new Image();
 var endimg = new Image();
+var bullimg = new Image();
 goldimg.src = "gold.png";
 lavaimg.src = "lava.png";
 underlavaimg.src = "underlava.png";
 endimg.src = "glitterchamber.png";
+bullimg.src = "bullet.png";
 var ff = 0;
 var fs = 0;
 var ifi = [0, 30, 0, 64, 7, 6, 6, 6, 0, 0, 0];
@@ -292,6 +294,8 @@ var tile = {
   goly: [],
   endx: [],
   endy: [],
+  enix: [],
+  eniy: [],
   onbox: []
 };
 var boxx = [];
@@ -359,6 +363,21 @@ character.prototype.draw = function() {
   ctx.fillText(time / 10 + " | " + pb.time, levelsize * levelw - 100, 20);
 };
 character.prototype.update = function() {
+  for(var x = 0; x < tile.boxx.length; x ++) {
+    for(var y = 0; y < vector.length; y ++) {
+      if (vector[y].bulletx < tile.boxx[x] + levelsize &&
+        vector[y].bulletx + 5 > tile.boxx[x] &&
+        vector[y].bullety < tile.boxy[x] + levelsize &&
+        5 + vector[y].bullety > tile.boxy[x]) {
+          vector.splice(y, 1);
+      }
+    }
+  }
+  for(var y = 0; y < vector.length; y ++) {
+    if(vector[y].bulletx > levelsize * 15 || vector[y].bulletx < 0 || vector[y].bullety < 0 || vector[y].bullety > levelsize * 8){
+      vector.splice(y, 1);
+    }
+  }
   ground.src = iidsrc[sel];
   ff = ifi[sel];
   fs = fsa[sel];
@@ -402,16 +421,18 @@ character.prototype.update = function() {
     setTimeout(function() {
     key++;
     tile = {
-      boxx: [],
-      boxy: [],
-      lavx: [],
-      lavy: [],
-      golx: [],
-      goly: [],
-      endx: [],
-      endy: [],
-      onbox: []
-    }
+  boxx: [],
+  boxy: [],
+  lavx: [],
+  lavy: [],
+  golx: [],
+  goly: [],
+  endx: [],
+  endy: [],
+  enix: [],
+  eniy: [],
+  onbox: []
+};
     levels[key].load();
     }, 1000);
   }
@@ -562,6 +583,9 @@ level.prototype.load = function() {
       } else if (this.level[i].charAt(x) == "e") { //if its e the draw a green box
         tile.endx.push(x * levelsize);
         tile.endy.push(i * levelsize - levelsize);
+      } else if (this.level[i].charAt(x) == "z") { //if its z the draw an eyctopus box
+        tile.enix.push(x * levelsize);
+        tile.eniy.push(i * levelsize - levelsize);
       } else if (this.level[i].charAt(x) == "s") { //if its s get the player start pos
         sx = x * levelsize;
         sy = i * levelsize - levelsize;
@@ -607,7 +631,7 @@ level.prototype.draw = function() {
   }
   }
   for (var i = 0; i < tile.golx.length; i++) {
-  ctx.drawImage(goldimg,20 * p1.fgaf, 0, 20, 20, tile.golx[i], tile.goly[i], levelsize, levelsize);
+    ctx.drawImage(goldimg,20 * p1.fgaf, 0, 20, 20, tile.golx[i], tile.goly[i], levelsize, levelsize);
   }
     p1.fgaf = Math.floor(p1.gaf);
     p1.feaf = Math.floor(p1.eaf);
@@ -628,6 +652,8 @@ resetb.onclick = function reset() {
       goly: [],
       endx: [],
       endy: [],
+      enix: [],
+      eniy: [],
       onbox: []
     }
   p1.gold = 0;
@@ -671,8 +697,7 @@ var v = function() {
   this.yspeed = 0;
 }
 v.prototype.update = function() {
-  ctx.fillStyle = "#C0C0C0";
-  ctx.fillRect(this.bulletx, this.bullety, 10, 10);
+  ctx.drawImage(bullimg, this.bulletx, this.bullety, levelsize / 4, levelsize / 4);
   this.bulletx -= this.xspeed;
   this.bullety -= this.yspeed;
 }
