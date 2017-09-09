@@ -15,16 +15,22 @@ var lavaimg = new Image();
 var underlavaimg = new Image();
 var endimg = new Image();
 var bullimg = new Image();
-goldimg.src = "gold.png";
-lavaimg.src = "lava.png";
-underlavaimg.src = "underlava.png";
-endimg.src = "glitterchamber.png";
-bullimg.src = "bullet.png";
+var eni0 = new Image();
+var eni1 = new Image();
+var eni2 = new Image();
+goldimg.src = "https://meprograms.github.io/codes/sidimc/gold.png";
+lavaimg.src = "https://meprograms.github.io/codes/sidimc/lava.png";
+underlavaimg.src = "https://meprograms.github.io/codes/sidimc/underlava.png";
+endimg.src = "https://meprograms.github.io/codes/sidimc/glitterchamber.png";
+bullimg.src = "https://meprograms.github.io/codes/sidimc/bullet.png";
+eni0.src = "https://meprograms.github.io/codes/sidimc/Eyctopus0.png";
+eni1.src = "https://meprograms.github.io/codes/sidimc/1.png";
+eni2.src = "https://meprograms.github.io/codes/sidimc/Eyctopus2.png";
 var ff = 0;
 var fs = 0;
 var ifi = [0, 30, 0, 64, 7, 6, 6, 6, 0, 0, 0];
 var fsa = [0, 0.2, 0, 0.5, 0.3, 0.25, 0.3, 0.3, 0, 0, 0];
-var iidsrc = ["ground.png", "x.png", "yf.png", "glitterfloor.png", "rf.png", "cf.png", "rx.png", "rs.png", "igf.png", "scf.png", "vf.png"];
+var iidsrc = ["https://meprograms.github.io/codes/sidimc/ground.png", "https://meprograms.github.io/codes/sidimc/x.png", "https://meprograms.github.io/codes/sidimc/yf.png", "https://meprograms.github.io/codes/sidimc/glitterfloor.png", "https://meprograms.github.io/codes/sidimc/rf.png", "https://meprograms.github.io/codes/sidimc/cf.png", "https://meprograms.github.io/codes/sidimc/rx.png", "https://meprograms.github.io/codes/sidimc/rs.png", "https://meprograms.github.io/codes/sidimc/igf.png", "https://meprograms.github.io/codes/sidimc/scf.png", "https://meprograms.github.io/codes/sidimc/vf.png"];
 var items = {
   nf: true,
   xf: false,
@@ -46,6 +52,11 @@ document.addEventListener('keydown', function(e) {
 document.addEventListener('keyup', function(e) {
   keyPressed[e.keyCode] = false;
 }, false);
+var enimy = function(x, y) {
+  this.x = x;
+  this.y = y;
+  this.l = "https://meprograms.github.io/codes/sidimc/Eyctopus0.png";
+}
 var level = function(layout) {
   this.level = layout;
   };
@@ -91,7 +102,7 @@ function setupStorage(value, out) {
 var levels = [];
 var layout = [
   [
-    "               ", //thanks me
+    " z    z        ", //thanks me
     "               ",
     "         +     ",
     "s       ___   e",
@@ -294,8 +305,7 @@ var tile = {
   goly: [],
   endx: [],
   endy: [],
-  enix: [],
-  eniy: [],
+  eni: [],
   onbox: []
 };
 var boxx = [];
@@ -320,9 +330,11 @@ var character = function(x, y) {
   this.dead = false;
   this.onground = false;
   this.gaf = 0;
+  this.eyeaf = 0;
   this.eaf = 0;
   this.gfaf = 0;
   this.fgaf = 0;
+  this.feyeaf = 0;
   this.feaf = 0;
   this.fgfaf = 0;
   this.dir = 0;
@@ -363,13 +375,34 @@ character.prototype.draw = function() {
   ctx.fillText(time / 10 + " | " + pb.time, levelsize * levelw - 100, 20);
 };
 character.prototype.update = function() {
+  for(var x = 0; x < tile.eni.length; x ++) {
+    if(this.x + levelsize / 2 + this.y - tile.eni[x].y < tile.eni[x].x) {
+      tile.eni[x].l = eni1;
+    }
+    else if(this.x + levelsize / 2 - this.y - tile.eni[x].y > tile.eni[x].x) {
+      tile.eni[x].l = eni2;
+    }
+    else {
+      tile.eni[x].l = eni0;
+    }
+  }
   for(var x = 0; x < tile.boxx.length; x ++) {
     for(var y = 0; y < vector.length; y ++) {
       if (vector[y].bulletx < tile.boxx[x] + levelsize &&
-        vector[y].bulletx + 5 > tile.boxx[x] &&
+        vector[y].bulletx + levelsize / 4 > tile.boxx[x] &&
         vector[y].bullety < tile.boxy[x] + levelsize &&
-        5 + vector[y].bullety > tile.boxy[x]) {
+        levelsize / 4 + vector[y].bullety > tile.boxy[x]) {
           vector.splice(y, 1);
+      }
+    }
+  }
+  for(var x = 0; x < tile.eni.length; x ++) {
+    for(var y = 0; y < vector.length; y ++) {
+      if (vector[y].bulletx < tile.eni[x].x + levelsize &&
+        vector[y].bulletx + levelsize / 4 > tile.eni[x].x &&
+        vector[y].bullety < tile.eni[x].y + levelsize &&
+        levelsize / 4 + vector[y].bullety > tile.eni[x].y) {
+          tile.eni.splice(x, 1);
       }
     }
   }
@@ -429,8 +462,7 @@ character.prototype.update = function() {
   goly: [],
   endx: [],
   endy: [],
-  enix: [],
-  eniy: [],
+  eni: [],
   onbox: []
 };
     levels[key].load();
@@ -584,8 +616,7 @@ level.prototype.load = function() {
         tile.endx.push(x * levelsize);
         tile.endy.push(i * levelsize - levelsize);
       } else if (this.level[i].charAt(x) == "z") { //if its z the draw an eyctopus box
-        tile.enix.push(x * levelsize);
-        tile.eniy.push(i * levelsize - levelsize);
+        tile.eni.push(new enimy(x * levelsize, i * levelsize));
       } else if (this.level[i].charAt(x) == "s") { //if its s get the player start pos
         sx = x * levelsize;
         sy = i * levelsize - levelsize;
@@ -598,9 +629,13 @@ level.prototype.load = function() {
   }
 };
 level.prototype.draw = function() {
+  p1.eyeaf += 0.2
   p1.gaf += 0.2;
   p1.eaf += 0.2;
   p1.gfaf += fs;
+  if (p1.eyeaf > 3) {
+    p1.eyeaf = 0;
+  }
   if(p1.gaf > 11) {
     p1.gaf = 0;
   }
@@ -633,6 +668,10 @@ level.prototype.draw = function() {
   for (var i = 0; i < tile.golx.length; i++) {
     ctx.drawImage(goldimg,20 * p1.fgaf, 0, 20, 20, tile.golx[i], tile.goly[i], levelsize, levelsize);
   }
+  for (var i = 0; i < tile.eni.length; i++) {
+    ctx.drawImage(tile.eni[i].l,20 * p1.feyeaf, 0, 20, 20, tile.eni[i].x, tile.eni[i].y, levelsize, levelsize);
+  }
+    p1.feyeaf = Math.floor(p1.eyeaf);
     p1.fgaf = Math.floor(p1.gaf);
     p1.feaf = Math.floor(p1.eaf);
     p1.fgfaf = Math.floor(p1.gfaf);
@@ -652,8 +691,7 @@ resetb.onclick = function reset() {
       goly: [],
       endx: [],
       endy: [],
-      enix: [],
-      eniy: [],
+      eni: [],
       onbox: []
     }
   p1.gold = 0;
@@ -712,8 +750,8 @@ v.prototype.math = function() {
     this.vb[1] = my;
     this.vc[0] = this.va[0] - this.vb[0];
     this.vc[1] = this.va[1] - this.vb[1];
-    this.xspeed = this.vc[0] / Math.sqrt(Math.pow(this.vc[0], 2) + Math.pow(this.vc[1], 2)) * levelsize;
-    this.yspeed = this.vc[1] / Math.sqrt(Math.pow(this.vc[0], 2) + Math.pow(this.vc[1], 2)) * levelsize;
+    this.xspeed = this.vc[0] / Math.sqrt(Math.pow(this.vc[0], 2) + Math.pow(this.vc[1], 2)) * levelsize / 4;
+    this.yspeed = this.vc[1] / Math.sqrt(Math.pow(this.vc[0], 2) + Math.pow(this.vc[1], 2)) * levelsize / 4;
 }
 var vector = [];
 canvas.addEventListener('click', function(e) {
