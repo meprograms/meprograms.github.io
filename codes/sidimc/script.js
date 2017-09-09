@@ -18,19 +18,19 @@ var bullimg = new Image();
 var eni0 = new Image();
 var eni1 = new Image();
 var eni2 = new Image();
-goldimg.src = "https://meprograms.github.io/codes/sidimc/gold.png";
-lavaimg.src = "https://meprograms.github.io/codes/sidimc/lava.png";
-underlavaimg.src = "https://meprograms.github.io/codes/sidimc/underlava.png";
-endimg.src = "https://meprograms.github.io/codes/sidimc/glitterchamber.png";
-bullimg.src = "https://meprograms.github.io/codes/sidimc/bullet.png";
-eni0.src = "https://meprograms.github.io/codes/sidimc/Eyctopus0.png";
-eni1.src = "https://meprograms.github.io/codes/sidimc/1.png";
-eni2.src = "https://meprograms.github.io/codes/sidimc/Eyctopus2.png";
+goldimg.src = "gold.png";
+lavaimg.src = "lava.png";
+underlavaimg.src = "underlava.png";
+endimg.src = "glitterchamber.png";
+bullimg.src = "bullet.png";
+eni0.src = "Eyctopus0.png";
+eni1.src = "1.png";
+eni2.src = "Eyctopus2.png";
 var ff = 0;
 var fs = 0;
 var ifi = [0, 30, 0, 64, 7, 6, 6, 6, 0, 0, 0];
 var fsa = [0, 0.2, 0, 0.5, 0.3, 0.25, 0.3, 0.3, 0, 0, 0];
-var iidsrc = ["https://meprograms.github.io/codes/sidimc/ground.png", "https://meprograms.github.io/codes/sidimc/x.png", "https://meprograms.github.io/codes/sidimc/yf.png", "https://meprograms.github.io/codes/sidimc/glitterfloor.png", "https://meprograms.github.io/codes/sidimc/rf.png", "https://meprograms.github.io/codes/sidimc/cf.png", "https://meprograms.github.io/codes/sidimc/rx.png", "https://meprograms.github.io/codes/sidimc/rs.png", "https://meprograms.github.io/codes/sidimc/igf.png", "https://meprograms.github.io/codes/sidimc/scf.png", "https://meprograms.github.io/codes/sidimc/vf.png"];
+var iidsrc = ["ground.png", "x.png", "yf.png", "glitterfloor.png", "rf.png", "cf.png", "rx.png", "rs.png", "igf.png", "scf.png", "vf.png"];
 var items = {
   nf: true,
   xf: false,
@@ -55,7 +55,7 @@ document.addEventListener('keyup', function(e) {
 var enimy = function(x, y) {
   this.x = x;
   this.y = y;
-  this.l = "https://meprograms.github.io/codes/sidimc/Eyctopus0.png";
+  this.l = "Eyctopus0.png";
 }
 var level = function(layout) {
   this.level = layout;
