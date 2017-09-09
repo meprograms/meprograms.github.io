@@ -113,7 +113,7 @@ var layout = [
     "_______________"
   ],
   [
-    "               ", //thanks me
+    "    z     z    ", //thanks me
     "    +          ",
     "         +    e",
     "s      _xx_____",
@@ -124,8 +124,8 @@ var layout = [
     "_______________"
   ],
   [
-    "               ", //thanks hannah
-    "               ",
+    "  z           ", //thanks hannah
+    "         z     ",
     "               ",
     "              +",
     "      _  _ _  e",
@@ -136,8 +136,8 @@ var layout = [
   ],
   [
     "               ", //thanks sierra
-    "               ",
-    "               ",
+    "       z       ",
+    "              z",
     "               ",
     "         +    e",
     "s _x  +_xx__xx_",
@@ -146,8 +146,8 @@ var layout = [
     "_______________"
   ],
   [
-    "               ", //thanks me/cooper
-    "               ",
+    "              z", //thanks me/cooper
+    "       z       ",
     "               ",
     "             + ",
     "s  +   +      e",
@@ -157,10 +157,10 @@ var layout = [
     "_______________"
   ],
   [
-    "               ", //thanks hannah
+    "    z          ", //thanks hannah
     "       __   +  ",
     "      x  xx___ ",
-    "   __x         ",
+    "   __x  z      ",
     "              e",
     "s         +  __",
     "_______xx__xx__",
@@ -168,7 +168,7 @@ var layout = [
     "_______________"
   ],
   [
-    "               ", //thanks me
+    "         z     ", //thanks me
     "   __          ",
     "s __           ",
     "___       +   e",
@@ -179,10 +179,10 @@ var layout = [
     "_______________"
   ],
   [
-    "               ", //thanks hannah
+    "      z        ", //thanks hannah
     "      _        ",
     "        x      ",
-    "   _    x     e",
+    "   _    x z   e",
     "        x +    ",
     "s   +   x      ",
     "______xxx__xx__",
@@ -193,7 +193,7 @@ var layout = [
     "e   +          ", //thanks cooper
     "___________   _",
     "               ",
-    "          xx  x",
+    "          xxz x",
     "          xx_  ",
     "s              ",
     "_   _         _",
@@ -201,7 +201,7 @@ var layout = [
     "_______________"
   ],
   [
-  "               ", //thanks sierra
+  "        z      ", //thanks sierra
   "               ",
   "  +         +  ",
   " ____      ____",
@@ -212,7 +212,7 @@ var layout = [
   "_______________"
   ],
   [
-  "               ", //thanks sierra
+  "        z      ", //thanks sierra
   "               ",
   "               ",
   "           +e  ",
@@ -225,7 +225,7 @@ var layout = [
   [
   "               ", //Thanks Sierra
   "               ",
-  "               ",
+  "         z     ",
   "               ",
   "               ",
   "   s  +        ",
