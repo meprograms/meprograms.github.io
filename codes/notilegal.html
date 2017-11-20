@@ -1,21 +1,28 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <p id="p"></p>
 <script>
+function wait(ms){
+   var start = new Date().getTime();
+   var end = start;
+   while(end < start + ms) {
+     end = new Date().getTime();
+  }
+}
 var p = document.getElementById("p");
 var ip = prompt("enter the ip");
 var data = {};
-var posarr = [];
+var posarr;
 var turl = "https://ipinfo.io/" + ip + "/json"
 $.get(turl, function(response) { 
     data = response;
 });
 setInterval(function() {
-p.innerHTML = "IP: " + data.ip + "<br>" + "CITY: " + data.city + "<br>" + "REGION: " + data.region + "<br>" + "COUNTRY: " + data.country + "<br>" + "LOCATION: " + data.loc + "<br>" + "PROVIDER: " + data.org + "<br>" + "POSTAL: " + data.postal + "<br>" + posarr[1];
+if(data.loc != undefined) {
 posarr = JSON.parse("[" + data.loc + "]");
-});
-while(posarr == undefined) {
-console.log("Waiting for ipinfo.io...");
+p.innerHTML = "IP: " + data.ip + "<br>" + "CITY: " + data.city + "<br>" + "REGION: " + data.region + "<br>" + "COUNTRY: " + data.country + "<br>" + "LOCATION: " + data.loc + "<br>" + "PROVIDER: " + data.org + "<br>" + "POSTAL: " + data.postal;
 }
+});
+wait(100);
 </script>
 <!--AIzaSyBWh3FiQ0IVaqpNGlDLMl9U7l-cEVDj0u0-->
 <h3>My Google Maps Demo</h3>
