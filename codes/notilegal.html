@@ -1,0 +1,39 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<p id="p"></p>
+<script>
+var p = document.getElementById("p");
+var ip = prompt("enter the ip");
+var data = {};
+var turl = "https://ipinfo.io/" + ip + "/json"
+$.get(turl, function(response) { 
+    data = response;
+});
+setInterval(function() {
+p.innerHTML = "IP: " + data.ip + "<br>" + "CITY: " + data.city + "<br>" + "REGION: " + data.region + "<br>" + "COUNTRY: " + data.country + "<br>" + "LOCATION: " + data.loc + "<br>" + "PROVIDER: " + data.org + "<br>" + "POSTAL: " + data.postal;
+})
+</script>
+<!--AIzaSyC7dIMLZuiuS27wNAGNYN9-->
+<h3>My Google Maps Demo</h3>
+<style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var uluru = {lat: -25.363, lng: 131.044};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7dIMLZuiuS27wNAGNYN9_Ira_yCI3Un4&callback=initMap">
+    </script>
