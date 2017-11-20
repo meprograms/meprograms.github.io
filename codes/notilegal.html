@@ -13,6 +13,9 @@ setInterval(function() {
 p.innerHTML = "IP: " + data.ip + "<br>" + "CITY: " + data.city + "<br>" + "REGION: " + data.region + "<br>" + "COUNTRY: " + data.country + "<br>" + "LOCATION: " + data.loc + "<br>" + "PROVIDER: " + data.org + "<br>" + "POSTAL: " + data.postal + "<br>" + posarr[1];
 posarr = JSON.parse("[" + data.loc + "]");
 });
+while(posarr == undefined) {
+console.log("Waiting for ipinfo.io...");
+}
 </script>
 <!--AIzaSyBWh3FiQ0IVaqpNGlDLMl9U7l-cEVDj0u0-->
 <h3>My Google Maps Demo</h3>
