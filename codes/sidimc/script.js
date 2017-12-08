@@ -93,6 +93,9 @@ function setupStorage(value, out) {
   pb.tgold = localStorage.getItem("tgold");
   sel = localStorage.getItem("sel");
   items = JSON.parse(localStorage.getItem("items") || null) || {};
+  if(!items.ph) {
+    document.getElementById("11").parentElement.style.display = "none";
+  }
   // if (items.gf == true) {
   //   ground.src = "glitterfloor.png";
   //   ff = ifi.gf;
