@@ -28,9 +28,9 @@ eni1.src = "1.png";
 eni2.src = "Eyctopus2.png";
 var ff = 0;
 var fs = 0;
-var ifi = [0, 30, 0, 64, 7, 6, 6, 6, 0, 0, 0];
-var fsa = [0, 0.2, 0, 0.5, 0.3, 0.25, 0.3, 0.3, 0, 0, 0];
-var iidsrc = ["ground.png", "x.png", "yf.png", "glitterfloor.png", "rf.png", "cf.png", "rx.png", "rs.png", "igf.png", "scf.png", "vf.png"];
+var ifi = [0, 30, 0, 64, 7, 6, 6, 6, 0, 0, 0, 0];
+var fsa = [0, 0.2, 0, 0.5, 0.3, 0.25, 0.3, 0.3, 0, 0, 0, 0];
+var iidsrc = ["ground.png", "x.png", "yf.png", "glitterfloor.png", "rf.png", "cf.png", "rx.png", "rs.png", "igf.png", "scf.png", "vf.png", "ph.png"];
 var items = {
   nf: true,
   xf: false,
@@ -41,7 +41,8 @@ var items = {
   rx: false,
   igf: false,
   scf: false,
-  vf: false
+  vf: false,
+  ph: false
 }
 var sel = 0;
 var sx = 0;
